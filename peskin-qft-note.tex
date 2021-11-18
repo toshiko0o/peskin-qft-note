@@ -220,17 +220,21 @@ Hagen Kleinert解释了在(2.11)中用Euler-Lagrange方程的含义: 在所有�
 
 这里有一种更好的导出标量场表达式的方法. 
 
-首先还是将$\phi(x)$表达为
+首先我们把对易关系修改为\textit{等时对易关系}: 
+\begin{equation}
+  \bigl[\phi(t, \mathbf{x}), \pi(t, \mathbf{y})\bigr] = i\delta^{(3)}(\mathbf{x} - \mathbf{y}), 
+\end{equation}
+而后将$\phi(x)$表达为
 \begin{equation}
   \phi(\mathbf{x}, t) = \int \frac{d^3 p}{(2\pi)^3}e^{i\mathbf{p \cdot x}}\phi(\mathbf{p}, t), 
 \end{equation}
-而其中的$\phi(\mathbf{p}, t)$为(在上式中同时对两端做积分 $\int e^{-i\mathbf{p'\cdot x}} d^3 x$ )
+其中的$\phi(\mathbf{p}, t)$为(在上式中同时对两端做积分 $\int e^{-i\mathbf{p'\cdot x}} d^3 x$ )
 \begin{equation}
   \phi(\mathbf{p}, t) = \int d^3 x\ e^{-i\mathbf{p \cdot x}}\phi(\mathbf{x}, t), 
 \end{equation}
-由于$\phi^\dagger = \phi$($\phi$为实标量场), 
+由于$\phi^\dagger = \phi$ ($\phi$为实标量场), 
 \begin{equation}
-  \phi^{\dagger}(\mathbf{p}, t) = \int d^3 x\ e^{i\mathbf{p \cdot x}}\phi(\mathbf{x}, t) = -\phi(\mathbf{p}, t). 
+  \phi^{\dagger}(\mathbf{p}, t) = \int d^3 x\ e^{i\mathbf{p \cdot x}}\phi(\mathbf{x}, t) = \phi(-\mathbf{p}, t). 
 \end{equation}
 
 接下来考虑运动方程(2.21), 写出试解: 
@@ -691,7 +695,7 @@ $(2\pi)^4 \delta(0)$可以理解为$\int d^4x e^{ip\cdot 0}$, 即$\int d^4x$, �
 
 \subsection{Path Integrals in Quantum Mechanics}
 
-这一节随便看看就行了, 直接去看Sakurai或者Srednicki可能更好. 下一节开始才是重要的部分. 
+这一节随便看看就行了, 推荐去看Sakurai或者Srednicki相关的部分. 下一节开始才是重要的部分. 
 
 \subsubsection{P276 - (9.2)}
 
@@ -700,7 +704,7 @@ $(2\pi)^4 \delta(0)$可以理解为$\int d^4x e^{ip\cdot 0}$, 即$\int d^4x$, �
 \subsubsection{P278 - (9.4)}
 
 \begin{remark}
-  简单的理解: 把一条路径看成有无限个自变量的多元函数, 那么
+  简单的理解: 把一条路径看成有无限个自变量($x_n, n \rightarrow \infty$)的多元函数, 那么在这个由$x_n$张成的希尔伯特空间里积分的形式即为本式等号右边的形式. 
 \end{remark}
 
 \subsubsection{P279 - (9.5)}
@@ -713,6 +717,13 @@ $(2\pi)^4 \delta(0)$可以理解为$\int d^4x e^{ip\cdot 0}$, 即$\int d^4x$, �
 
 \subsection{Functional Quantization of Scalar Fields}
 
+\subsubsection{P282 - (9.14)}
+
+\begin{remark}
+  自己的理解: 考虑离散形式(9.11)的话, 利用高斯积分积掉$\pi$的相关项就很自然了(不用考虑指数上那个对时间$t$的积分). 
+\end{remark}
+
+\subsubsection{}
 
 
 \clearpage
