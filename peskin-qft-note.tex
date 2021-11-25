@@ -327,6 +327,46 @@ $\Delta(x; m)$可写为洛伦兹不变的形式(其中$\varepsilon(x)$为符号�
 
 我们在此笔记的 \ref{subsubsec:KG_Field_expression} 中就已经得到了包含时间的形式, 无须再考虑这一步. 
 
+\subsubsection{P27 - (2.52)}
+这里考虑\href{https://zh.wikipedia.org/wiki/柯西积分定理}{柯西积分定理}, 
+沿$L_1, L_2$构成的闭合回路积分值为0. 
+
+\begin{center}
+  \includegraphics[width = 0.8\textwidth]{P27_2.52.png}  
+\end{center}
+
+因此, 若记
+\begin{equation}
+  f(p) = \frac{pe^{ipr}}{\sqrt{p^2+m^2}}, 
+\end{equation}
+并将$p$视为复数, 则有
+\begin{equation}\label{eq: push_contour}
+  \begin{aligned}
+    \int_{L_2}dp\ f(p) &= \int_{L_1}dp\ fp \\
+    &= \int_{\gamma_2}p\ f(p) + \int_{\gamma_1}dp\ f(p), 
+  \end{aligned}
+\end{equation}
+其中积分路径为
+\begin{equation*}
+  \begin{aligned}
+    \gamma_1: p(\rho) = i\rho, \rho\in[m,+\infty], \\
+    \gamma_2: p(\rho) = i\rho, \rho\in[+\infty,m],  
+  \end{aligned}
+\end{equation*}
+这里选择从上半平面积分是因为当$|p|\to\infty$时, $f(p)$在上半平面一致收敛为0. 因此, 两个无穷大$1/4$圆弧上积分值为0; 再考虑到$im$处无穷小半圆弧上的积分值为0, 我们就得到了笔记 (\ref{eq: push_contour}) 式的第二行. 
+
+点$p = \pm im$是$\sqrt{p^2+m^2}$的支点(branch point). 从分支左侧到右侧时, 需要考虑图中所示的分支切割(branch cut), 此时$p^2+m^2$获得了$2\pi$的相位, 即$\sqrt{p^2+m^2}$获得了相位$e^{i\pi}$. 因此, 
+\begin{equation}
+  \begin{aligned}
+    \int_{L_2}dp\,f(p) &= \int_{\gamma_2}dp\,f(p) + \int_{\gamma_1}dp\,f(p)\\
+    &= \int_{\gamma_2}dp\,\frac{pe^{ipr}}{\sqrt{p^2+m^2}}
+    + \int_{\gamma_1}dp\,\frac{pe^{ipr}}{e^{i\pi}\sqrt{p^2+m^2}}\\
+    &= -2\int_{\gamma_1}dp\,\frac{pe^{ipr}}{\sqrt{p^2+m^2}}\\
+    &= 2i\int_{m}^{\infty}d\rho\,\frac{\rho e^{-\rho r}}{\sqrt{\rho^2-m^2}}, 
+  \end{aligned}
+\end{equation}
+将积分结果带回即可得到书中(2.52)式. 
+
 \subsubsection{P28 - (2.53)}
 
 这个commutator用此笔记的 \ref{subsubsec: Invar_Delta} 中的$\Delta$可以表示为: 
@@ -723,7 +763,7 @@ $(2\pi)^4 \delta(0)$可以理解为$\int d^4x e^{ip\cdot 0}$, 即$\int d^4x$, �
   自己的理解: 考虑离散形式(9.11)的话, 利用高斯积分积掉$\pi$的相关项就很自然了(不用考虑指数上那个对时间$t$的积分). 
 \end{remark}
 
-\subsubsection{}
+\subsection{The Analogy Between Quantum Field Theory and Statistical Mechanics}
 
 
 \clearpage
