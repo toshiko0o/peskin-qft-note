@@ -263,11 +263,10 @@ Hagen Kleinert解释了在(2.11)中用Euler-Lagrange方程的含义: 在所有�
 
 值得注意的是, 书中把$a(\mathbf{p})$写为了$a_\mathbf{p}$, 实际上理解为函数就可以了. 熟悉了以后这样写比较方便. 
 
-\begin{remark}
-  (有待商榷)\\
-  “量子化”步骤: 引入正则对易关系, 然后解对应的方程. 方程和经典形式一样, 但对易关系的引入使变量不再是数而是算符.
-  例如这里要解的方程是K-G方程, 但变量$\phi(x),\pi(x)$不再是复数, 而是满足特定关系的算符. 正是因为方程形式相同, 
-  我们可以从经典解出发进行尝试. 对于微分方程，只要能试出正确的解并验证完备性, 那就是通解. 
+\begin{remark}[有待商榷]
+  量子化的步骤: 引入正则对易关系, 然后解对应的运动方程. 
+  
+  例如这里我们首先引入对易关系使得基础力学量$\phi(x),\pi(x)$成为了算符, 然后尝试解K-G方程. 由于量子化后的方程形式和经典情形下的相同, 我们便可以从经典解出发进行尝试. 而对于微分方程, 只要能试出正确的解并验证其完备性, 就可以将其作为通解.  
 \end{remark}
 
 \subsubsection{P21 - (2.26)下面那一段}
@@ -382,10 +381,7 @@ $\Delta(x; m)$可写为洛伦兹不变的形式(其中$\varepsilon(x)$为符号�
 \end{equation}
 
 \begin{remark}
-  可以这样解释的原因是: 在量子力学中我们将两个态的内积的模的平方解释为可观测的概率, 是可观测量. 
-  书中前面虽然有将$\phi(x) |0\rangle$类比为$|x\rangle$, 但没有赋予其其他含义. 
-  （可以理解为这个传播振幅无法与可观测量联系起来, 故无法传递信息）. 而算符$\phi(x), \phi(y)$
-  的对易关系与量子力学中算符的对易关系的含义相同. 
+  可以这样解释的原因是: 在量子力学中我们将两个态的内积的模的平方解释为该态可被观测到的概率, 是可观测量. 而书中前面虽将$\phi(x) |0\rangle$类比为了$|x\rangle$, 但没有赋予其其他含义. (可以理解为这个传播振幅无法与可观测量联系起来, 故无法传递信息). 而算符$\phi(x), \phi(y)$的对易关系与量子力学中算符的对易关系的含义相同. 
 \end{remark}
 
 \subsubsection{P30 - (2.54)}
@@ -453,7 +449,7 @@ $J^3 = J^{12}$中, 3是(3.15)中的的上标, 12是中间没有序号的式子�
 
 相当重要的一个例子, 后面也要用到. 
 \begin{remark}
-  注意区分矢量空间的指标和表示空间 (基本都是旋量空间) 的指标, 一般后者会省略. 
+  注意区分矢量空间和其他表示空间 (基本都是旋量空间) 的指标. 一般后者会被省略. 
 \end{remark}
 
 \subsubsection{P40 - (3.19)}
@@ -529,7 +525,8 @@ $l.h.s = r.h.s$, 即证.
 第二个式子中, 把左边展开后忽略二阶小量即可. 
 
 \subsubsection{P42 - (3.31)下方验证洛伦兹协变的式子}
-第一行$\gamma^\mu \partial_\mu$变换后多出来的$\Lambda^{-1}$参见书中式(3.3).
+
+对第一行的$\gamma^\mu \partial_\mu$做变换后会多出来一个$\Lambda^{-1}$的原因参考书中式(3.3).
 
 \subsubsection{P43 - (3.35)}
 
@@ -601,9 +598,8 @@ $l.h.s = r.h.s$, 即证.
 \subsection{Dirac Matrices and Dirac Field Bilinears}
 
 \subsubsection{P50 - (3.72)}
-\begin{remark}
-  这里可以自己验证一下$\bar{\psi} \gamma^5 \psi$在连续洛伦兹变换下是标量.
-\end{remark}
+
+这里可以自己验证一下$\bar{\psi} \gamma^5 \psi$在连续洛伦兹变换下是标量.
 
 \subsubsection{P51 - (3.76)}
 
@@ -636,6 +632,7 @@ $l.h.s = r.h.s$, 即证.
 \subsection{Quantization of the Dirac Field}
 
 \subsubsection{{P52} - (3.84)}
+
 \begin{align*}
   \mathcal{H} &= i {\psi}^\dagger \dot{\psi} - \mathcal{L}\\
   &= i {\psi}^\dagger \dot{\psi} - i \bar{\psi} \gamma^0 \dot{\psi} - i \bar{\psi} \gamma^i \partial_i \psi\\
@@ -643,9 +640,8 @@ $l.h.s = r.h.s$, 即证.
 \end{align*}
 
 \begin{remark}
-  注意$\gamma^\mu \partial_\mu = \gamma^0 \partial_0 + \gamma^i \partial_i$即可. 不要习惯性地写成减号. 
+  注意$\gamma^\mu \partial_\mu = \gamma^0 \partial_0 + \gamma^i \partial_i$. 不要习惯性地写成减号. 
 \end{remark}
-
 
 \subsubsection{P54 - (3.90)}
 
@@ -751,6 +747,10 @@ $(2\pi)^4 \delta(0)$可以理解为$\int d^4x e^{ip\cdot 0}$, 即$\int d^4x$, �
 \subsection{Cross Sections and the \textit{S}-Matrix}
 
 这一节讲怎么由$S$-Matrix计算截面. 
+
+\subsubsection{P100 - (4.59) \& P101 - (4.62)}
+
+把这两个式子当作截面和衰变率的定义记下来就可以, QFT里的定义是最好的定义. 
 
 \subsubsection{}
 
