@@ -1,16 +1,25 @@
 %!TEX program = xelatex
 
-\documentclass[cn,hazy,blue,11pt,device=normal,chinesefont=founder]{elegantnote}
+\documentclass[cn,hazy,green,11pt,device=normal,chinesefont=founder]{elegantnote}
 
-\title{\textcolor{black}{\Huge{Notes on the Peskin Book}}}
+\newcommand{\frontface}
+{
+\clearpage %加这个命令后, 目录中的页码才显示正确
+\phantomsection %加这个命令后, 目录中的超链接才指向正确的页码
+\section*{前言} %开始一段不带编号的章
+\addcontentsline{toc}{section}{前言} %使目录中以章级别显示“致谢”
+}
 
-\author{\textcolor{black}{早川　季}}
+\title{\textcolor{black}{\Huge{量子场论笔记(Peskin \& Schroeder)}}}
+
+\author{\textcolor{black}{Toki \& Starry}}
 \institute{}
 
-\version{1.01}
-\date{}
+% \version{0.01}
+\date{\today}
 
 \usepackage{array}
+\usepackage{graphicx}
 
 \begin{document}
 
@@ -26,7 +35,7 @@
 
 \clearpage
 
-\section*{前言}
+\frontface
 
 这是一篇基于\textit{An Introduction to Quantum Field Theory} - \textit{Peskin \& Schroeder}的量子场论学习笔记. 
 
@@ -41,6 +50,8 @@
 \clearpage
 
 \section{Invitation: Pair Production in \texorpdfstring{$e^+e^-$} Annihilation}
+
+介绍性的章节. 
 
 可能有一些有意思的内容, 暂时跳过. 
 
@@ -179,7 +190,7 @@ Hamiltonian Field Theorem实际上是和Lagrangian Field Theorem不同的路径.
 
 这里可以参考Hagen Kleinert课件中的\href{http://users.physik.fu-berlin.de/~kleinert/b6/psfiles/Chapter-7-conslaw.pdf}{解释}以及Weinberg QFT第一册中的7.3节. 
 
-Hagen Kleinert解释了在(2.11)中用Euler-Lagrange方程的含义: 在所有的场分布中, 我们只考虑由最小作用量原理决定的那一个, 即\textit{真实}的场分布(即经典力学中粒子运动的真实轨道). 
+Hagen Kleinert解释了在(2.11)中用Euler-Lagrange方程的含义: 在此处我们只考虑由最小作用量原理决定的那个场分布, 因此可以用Euler-Lagrange方程简化表达式. 即在所有的场分布中, 我们仅考虑了\textit{真实}的场分布(即经典力学中粒子运动的真实轨道). 
 
 我此前的疑惑是: 由书中(2.11)推导, 任意的全局变换($\alpha$ 为常数)都会导致Lagrangian变化一个4-divergence, 这是不是意味着任意的全局变换都是对称变换呢? 实际上, 这是因为在(2.11)中我们只考虑了\textit{真实}的场分布; 而根据Weinberg的说法, 对于\textit{真实}的场分布, 确实任意变换都会使(2.10)成立. 但\textit{对称变换}的含义是该变换使得 (2.10)对任意场分布都成立, 而不仅仅是对\textit{真实}的场分布成立, 所以“任意的全局变换都是对称变换”肯定是错误的. 
 
@@ -190,9 +201,9 @@ Hagen Kleinert解释了在(2.11)中用Euler-Lagrange方程的含义: 在所有�
   \begin{remark}
     在实际计算时, 我们应该首先检查变换是否保证了(2.10)成立(书中的前两个例子都是这么做的), 并由此得到$\mathcal{J}^{\mu}$的形式. 
   \end{remark}
-  \item 对于某个具体的变换 (2.9), 我们可以计算得到 (2.11) 式, 这代表了变换导致的 Lagrangian 的变化(对一般的场分布); 而接下来, 对于真实(满足最小作用量原理)的场来说, 考虑其 Lagrangian 的变化需要用 Euler-Lagrange 方程去掉第二项; 最后, 由于这一项肯定也满足 (2.10), 所以我们令它等于前面的 $\mathcal{J}^{\mu}$, 得到守恒流. 
+  \item 对于某个具体的变换(2.9), 我们可以计算得到(2.11)式, 这代表了该变换导致的Lagrangian的变化(对所有的场分布); 而接下来, 对于真实(满足最小作用量原理)的场来说, 考虑其Lagrangian的变化时, 可用Euler-Lagrange方程去掉(2.11)式中第二项; 最后, 由于剩余的一项依旧需要满足(2.10), 所以我们令它等于前面的$\mathcal{J}^{\mu}$, 得到守恒流. 
   \begin{remark}
-    这一步只是为了得到守恒流. 
+    这一步只是为了得到守恒流的表达式. 
   \end{remark}
 \end{enumerate}
 
@@ -263,7 +274,7 @@ Hagen Kleinert解释了在(2.11)中用Euler-Lagrange方程的含义: 在所有�
 
 值得注意的是, 书中把$a(\mathbf{p})$写为了$a_\mathbf{p}$, 实际上理解为函数就可以了. 熟悉了以后这样写比较方便. 
 
-\begin{remark}[有待商榷]
+\begin{remark}[个人理解]
   量子化的步骤: 引入正则对易关系, 然后解对应的运动方程. 
   
   例如这里我们首先引入对易关系使得基础力学量$\phi(x),\pi(x)$成为了算符, 然后尝试解K-G方程. 由于量子化后的方程形式和经典情形下的相同, 我们便可以从经典解出发进行尝试. 而对于微分方程, 只要能试出正确的解并验证其完备性, 就可以将其作为通解.  
@@ -291,7 +302,7 @@ Hagen Kleinert解释了在(2.11)中用Euler-Lagrange方程的含义: 在所有�
 \subsubsection{P22 - (2.34)}
 
 建议记这个公式: 
-\begin{equation}
+\begin{equation}\label{eq: delta_on_function}
   \delta(f(x)) = \sum_i \frac{\delta(x-x_i)}{|f'(x_i)|}, 
 \end{equation}
 其中$x_i$是$f(x)$的根. 参考 \href{https://zh.wikipedia.org/wiki/狄拉克δ函数#與函數的復合}{$\delta$函数的维基百科页面}. 
@@ -337,9 +348,12 @@ $\Delta(x; m)$可写为洛伦兹不变的形式(其中$\varepsilon(x)$为符号�
 这里考虑\href{https://zh.wikipedia.org/wiki/柯西积分定理}{柯西积分定理}, 
 沿$L_1, L_2$构成的闭合回路积分值为0. 
 
-\begin{center}
-  \includegraphics[width = 0.8\textwidth]{P27_2.52.png}  
-\end{center}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width = 0.8\textwidth]{P27_2.52.png}
+  \caption{push contour}
+  \label{fig: pushcon}
+\end{figure}
 
 因此, 若记
 \begin{equation}
@@ -361,7 +375,7 @@ $\Delta(x; m)$可写为洛伦兹不变的形式(其中$\varepsilon(x)$为符号�
 \end{equation*}
 这里选择从上半平面积分是因为当$|p|\to\infty$时, $f(p)$在上半平面一致收敛为0. 因此, 两个无穷大$1/4$圆弧上积分值为0; 再考虑到$im$处无穷小半圆弧上的积分值为0, 我们就得到了笔记 (\ref{eq: push_contour}) 式的第二行. 
 
-点$p = \pm im$是$\sqrt{p^2+m^2}$的支点(branch point). 从分支左侧到右侧时, 需要考虑图中所示的分支切割(branch cut), 此时$p^2+m^2$获得了$2\pi$的相位, 即$\sqrt{p^2+m^2}$获得了相位$e^{i\pi}$. 因此, 
+点$p = \pm im$是$\sqrt{p^2+m^2}$的支点(branch point). 从分支左侧到右侧时, 需要考虑图 \ref{fig: pushcon} 中所示的分支切割(branch cut), 此时$p^2+m^2$获得了$2\pi$的相位, 即$\sqrt{p^2+m^2}$获得了相位$e^{i\pi}$. 因此, 
 \begin{equation}
   \begin{aligned}
     \int_{L_2}dp\,f(p) &= \int_{\gamma_2}dp\,f(p) + \int_{\gamma_1}dp\,f(p)\\
@@ -394,12 +408,12 @@ $\Delta(x; m)$可写为洛伦兹不变的形式(其中$\varepsilon(x)$为符号�
 
 首先注意: 
 \begin{equation}
-  \partial_\mu \theta(x^0) = g_{0\mu} \delta(x^0) \label{eq: partial_on_delta}
+  \partial_\mu \theta(x^0) = g_{0\mu} \delta(x^0) \label{eq: partial_on_delta}.
 \end{equation}
 
 第一行: 对阶跃函数求一次导, 再应用分部积分后会得到
 \begin{equation}
-  \partial_0 \Bigl(\delta(x_0 - y_0)\langle 0|[\phi(x), \phi(y)]|0\rangle \Bigr)-\delta(x_0 - y_0)\partial_0\langle 0|[\phi(x), \phi(y)]|0\rangle
+  \partial_0 \Bigl(\delta(x_0 - y_0)\langle 0|[\phi(x), \phi(y)]|0\rangle \Bigr)-\delta(x_0 - y_0)\partial_0\langle 0|[\phi(x), \phi(y)]|0\rangle,
 \end{equation}
 其中第一项等于0的原因可以粗略理解为: $x_0 \neq y_0$时, $\delta(x_0 - y_0)$等于0; $x_0 = y_0$时, $\langle 0|[\phi(x), \phi(y)]|0\rangle$等于0. 
 
@@ -632,12 +646,13 @@ $l.h.s = r.h.s$, 即证.
 \subsection{Quantization of the Dirac Field}
 
 \subsubsection{{P52} - (3.84)}
-
-\begin{align*}
-  \mathcal{H} &= i {\psi}^\dagger \dot{\psi} - \mathcal{L}\\
-  &= i {\psi}^\dagger \dot{\psi} - i \bar{\psi} \gamma^0 \dot{\psi} - i \bar{\psi} \gamma^i \partial_i \psi\\
-  &= {\psi}^\dagger (-i \gamma^i \partial_i + m) \psi
-\end{align*}
+\begin{equation}
+  \begin{aligned}
+    \mathcal{H} &= i {\psi}^\dagger \dot{\psi} - \mathcal{L} \\
+    &= i {\psi}^\dagger \dot{\psi} - i \bar{\psi} \gamma^0 \dot{\psi} - i \bar{\psi} \gamma^i \partial_i \psi \\
+    &= {\psi}^\dagger (-i \gamma^i \partial_i + m) \psi. 
+  \end{aligned}
+\end{equation}
 
 \begin{remark}
   注意$\gamma^\mu \partial_\mu = \gamma^0 \partial_0 + \gamma^i \partial_i$. 不要习惯性地写成减号. 
@@ -676,6 +691,8 @@ $\xi(\uparrow)$和$\xi(\downarrow)$是$\boldsymbol{\sigma}\cdot\mathbf{\hat{n}}$
 \section{Interacting Fields and Feynman Diagrams}
 
 \subsection{Perturbation Theory --- Philosophy and Examples}
+
+跳过. 
 
 \subsection{Perturbation Expansion of Correlation Functions}
 
@@ -746,15 +763,69 @@ $(2\pi)^4 \delta(0)$可以理解为$\int d^4x e^{ip\cdot 0}$, 即$\int d^4x$, �
 
 \subsection{Cross Sections and the \textit{S}-Matrix}
 
-这一节讲怎么由$S$-Matrix计算截面. 
+这一节讲怎么由$S$-Matrix计算截面. 最重要的公式是书中的(4.79)和(4.86). 
 
 \subsubsection{P100 - (4.59) \& P101 - (4.62)}
 
 把这两个式子当作截面和衰变率的定义记下来就可以, QFT里的定义是最好的定义. 
 
-\subsubsection{}
+\subsubsection{P102 - (4.65)}
 
+用$\langle \mathbf{x}|$同时作用在等式两边: 
+\begin{equation}
+  \begin{aligned}
+    l.h.s. &= \langle \mathbf{x}|\phi \rangle = \phi(\mathbf{x}) \\ 
+    r.h.s. &= \int\frac{d^3 k}{(2\pi)^3}\frac{1}{\sqrt{2E_{\mathbf{k}}}}\phi(\mathbf{k})\langle \mathbf{x}|\mathbf{k} \rangle \\
+    &= \int\frac{d^3 k}{(2\pi)^3}\frac{1}{\sqrt{2E_{\mathbf{k}}}}\phi(\mathbf{k})\sqrt{2E_{\mathbf{k}}}\langle \mathbf{x}|a^{\dagger}_{\mathbf{k}}|0 \rangle \\
+    &= \int\frac{d^3 k}{(2\pi)^3}\ e^{i\mathbf{k}\cdot\mathbf{x}}\phi(\mathbf{k}) \\
+    &= \phi(\mathbf{x}).
+  \end{aligned}
+\end{equation}
 
+\subsubsection{P102最下面的一大段话}
+
+\begin{remark}[个人理解]
+  中间的“Note that we use the Heisenberg picture:...”这一段是在说in state和out state是由含时算符的本征态建立的, 而这些算符本身会随着时间演化, 因此它们不共用同一组基, 所以它们之间会有nontrivial overlap. 
+\end{remark}
+
+\subsubsection{P103 - (4.68)}
+
+式中的$e^{-i\mathbf{b}\cdot\mathbf{k_{\mathcal{B}}}}$是\textbf{平移算符}(translation operator). 可以参考J. J. Sakurai书中(1.6.32)式附近的说明. 
+
+\subsubsection{P104 - (4.74)}
+
+因为考虑的是落在$d^3p_1\cdots d^3p_n$这个小区域里的概率, 所以这里的$\mathcal{P}$应该写为$d\mathcal{P}$. 也因此, 等式右侧只有一个积分号, 利用书中(4.66)式可以将所有$|\phi(\mathbf{p}_n)|^2$归一化得到分子上那个$1$. 
+
+\subsubsection{P105 - (4.77)}
+
+最后一行利用笔记中(\ref{eq: delta_on_function})式计算即可. 
+
+关于$k_{\mathcal{A}}^{\bot}$: 
+
+由
+\begin{gather}
+  \delta^{(4)}(\sum k_i - \sum p_f) \\
+  \delta^{(4)}(\sum \bar{k}_i - \sum p_f)
+\end{gather}
+可以得到
+\begin{equation}
+  k_\mathcal{A} + k_\mathcal{B} = \bar{k}_\mathcal{A} + \bar{k}_\mathcal{B}, 
+\end{equation}
+只考虑$\bot$分量: 
+\begin{equation}
+  k_{\mathcal{A}}^{\bot} + k_{\mathcal{B}}^{\bot} = \bar{k}_{\mathcal{A}}^{\bot} + \bar{k}_{\mathcal{B}}^{\bot}, 
+\end{equation}
+再考虑$\delta^{(2)}(k_{\mathcal{B}}^{\bot} - \bar{k}_{\mathcal{B}}^{\bot})$, 则有
+\begin{equation}
+  k_{\mathcal{A}}^{\bot} = \bar{k}_{\mathcal{A}}^{\bot}, 
+\end{equation}
+即$\delta^{(2)}(k_{\mathcal{A}}^{\bot} - \bar{k}_{\mathcal{A}}^{\bot})$.
+
+\subsubsection{P106 - (4.78)}
+
+这里是把$\mathbf{k}_{\mathcal{A}}, \mathbf{k}_{\mathcal{B}}, \bar{\mathbf{k}}_{\mathcal{A}}, \bar{\mathbf{k}}_{\mathcal{B}}$全部用中心值$\mathbf{p}_{\mathcal{A}}, \mathbf{p}_{\mathcal{B}}$代替了. 
+
+\subsection{Computing \textit{S}-Matrix Elements from Feynman Diagrams}
 
 \clearpage
 
@@ -764,7 +835,13 @@ $(2\pi)^4 \delta(0)$可以理解为$\int d^4x e^{ip\cdot 0}$, 即$\int d^4x$, �
 
 \section{Radiative Corrections: Some Formal Developments}
 
+\clearpage
+
 \section{Invitation: Ultraviolet Cutoffs and Critical Fluctuations}
+
+介绍性的章节. 
+
+可能有一些有意思的内容, 暂时跳过. 
 
 \clearpage
 
@@ -805,61 +882,61 @@ $(2\pi)^4 \delta(0)$可以理解为$\int d^4x e^{ip\cdot 0}$, 即$\int d^4x$, �
 
 \clearpage
 
-\section{Cheat Sheet}
+% \section{Cheat Sheet}
 
-\subsection{定理类环境}
+% \subsection{定理类环境}
 
-\begin{theorem}[名称]
-  这是一个定理(theorem)
-\end{theorem}
+% \begin{theorem}[名称]
+%   这是一个定理(theorem)
+% \end{theorem}
 
-\begin{lemma}[名称]
-  这是一个引理(lemma)
-\end{lemma}
+% \begin{lemma}[名称]
+%   这是一个引理(lemma)
+% \end{lemma}
 
-\begin{proposition}[名称]
-  这是一个命题(proposition)
-\end{proposition}
+% \begin{proposition}[名称]
+%   这是一个命题(proposition)
+% \end{proposition}
 
-\begin{corollary}[名称]
-  这是一个推论(corollary)
-\end{corollary}
+% \begin{corollary}[名称]
+%   这是一个推论(corollary)
+% \end{corollary}
 
-\subsection{定义类环境}
+% \subsection{定义类环境}
 
-\begin{definition}[名称]
-  这是一个定义(definition)
-\end{definition}
+% \begin{definition}[名称]
+%   这是一个定义(definition)
+% \end{definition}
 
-\begin{conjecture}[名称]
-  这是一个猜想(conjecture)
-\end{conjecture}
+% \begin{conjecture}[名称]
+%   这是一个猜想(conjecture)
+% \end{conjecture}
 
-\begin{example}[名称]
-  这是一个例子(example)
-\end{example}
+% \begin{example}[名称]
+%   这是一个例子(example)
+% \end{example}
 
-\subsection{备注类环境}
+% \subsection{备注类环境}
 
-\begin{remark}[名称]
-  这是一条评论(remark)
-\end{remark}
+% \begin{remark}[名称]
+%   这是一条评论(remark)
+% \end{remark}
 
-\begin{note}[名称]
-  这是一条注(note)
-\end{note}
+% \begin{note}[名称]
+%   这是一条注(note)
+% \end{note}
 
-\begin{case}[名称]
-  这是一个案例(case)
-\end{case}
+% \begin{case}[名称]
+%   这是一个案例(case)
+% \end{case}
 
-\subsection{证明类环境}
+% \subsection{证明类环境}
 
-\begin{proof}
-  这是一个证明(proof)
-\end{proof}
+% \begin{proof}
+%   这是一个证明(proof)
+% \end{proof}
 
 \end{document}
 
 
-波浪线:\textasciitilde
+% 波浪线:\textasciitilde
