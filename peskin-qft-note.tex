@@ -1,43 +1,84 @@
-%!TEX program = xelatex
+% !TEX program = xelatex
 
-\documentclass[cn,hazy,green,11pt,device=normal,chinesefont=founder]{elegantnote}
+\documentclass[10pt,b5paper,openany]{book}
 
-\newcommand{\frontface}
-{
-\clearpage % 加这个命令后, 目录中的页码才显示正确
-\phantomsection % 加这个命令后, 目录中的超链接才指向正确的页码
-\section*{前言} %开始一段不带编号的章
-\addcontentsline{toc}{section}{前言} %使目录中以章级别显示“致谢”
+% 调整页边距
+\usepackage{geometry}
+\geometry{right=2cm,left=2cm,top=2cm,bottom=2cm}
+
+% ams大礼包
+\usepackage{amsmath}
+\usepackage{amscd} % 制作交换图表 (Commutative diagram)
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
+% 漂亮的数学字体
+\usepackage{mathpazo}
+
+% 输入数组矩阵
+\usepackage{array}
+
+% 输入正体希腊字母
+\usepackage{upgreek}
+
+% 调整参考文献引用格式
+\usepackage{cite}
+
+% 超链接
+\usepackage[colorlinks, linkcolor=black]{hyperref}
+
+% 插入图片等
+\usepackage{graphicx}
+\graphicspath{
+  {./image/}
 }
 
-\title{\textcolor{black}{\Huge{量子场论笔记(Peskin \& Schroeder)}}}
+% 浮动体标题的格式
+\usepackage{caption}
 
-\author{\textcolor{black}{Toki \& Starry}}
-\institute{}
+% 给符号加粗用
+\usepackage{bm}
 
-% \version{0.01}
-\date{\today}
+% 英文 OTF 字体
+\usepackage{fontspec}
 
-\usepackage{array}
-\usepackage{graphicx}
+% 中文字体
+\usepackage[UTF8]{ctex}
+
+% \usepackage{zhlipsum}  % 无内容时查看排版效果
+% \usepackage{savesym}   % 冰岛语字体包? 
+% \usepackage{fancyhdr}  % 调整页眉页脚
+% \usepackage{wrapfig}   % 处理小宽度图, 使图位于文本的一边, 并使文本在其边上折行
+% \usepackage[all]{xy}   % 制作某种复杂的数学图表
+% \usepackage{tikz}      % 某种插入图片的包, 手册1000多页, 不明觉厉
+% \usepackage{fancybox}  % 生成花哨的箱子 (比如有阴影的)
+
+\title{量子场论(Peskin \& Schroeder)笔记}
+
+\author{季}
 
 \begin{document}
 
 \maketitle
 
-\mbox{}
-
-\centerline{
-  \includegraphics[width=0.72\textwidth]{peskin-front.jpg}
-}
+% \centerline{
+%   \includegraphics[width=0.72\textwidth]{peskin-front.jpg}
+% }
 
 \tableofcontents
 
-\clearpage
 
-\frontface
+% ------------------------------------------------- %
+% ------------------- main body ------------------- %
+% ------------------------------------------------- %
 
-本文为基于\textit{An Introduction to Quantum Field Theory} - \textit{Peskin \& Schroeder}的量子场论笔记. 
+
+\clearpage % 加这个命令后, 目录中的页码才显示正确
+\phantomsection % 加这个命令后, 目录中的超链接才指向正确的页码
+\chapter*{前言} %开始一段不带编号的章
+\addcontentsline{toc}{chapter}{前言} %使目录中以章级别显示
+
+本文为基于\textit{An Introduction to Quantum Field Theory} - \textit{Peskin \& Schroeder}一书的量子场论笔记. 
 
 本文主要对此书正文部分一些复杂的计算和难以理解的段落作了注释, 同时根据研究生课程内容对部分较为简略的段落添加了补充说明. 由于计算比较困难, 并且许多概念及物理图像需要仔细思考后才能理解, 故本篇笔记将以中文呈现. 若后有闲暇, 将转译为英文. 
 
@@ -49,43 +90,42 @@
 
 \clearpage
 
-\section{Invitation: Pair Production in \texorpdfstring{$e^+e^-$} Annihilation}
+\part{Feynman Diagrams and Quantum Electrodynamics}
 
-介绍性的章节. 
+\chapter{Invitation: Pair Production in \texorpdfstring{$e^+e^-$}\ \ Annihilation}
 
-可能有一些有意思的内容, 暂时跳过. 
+介绍性的章节. 可能有一些有意思的内容, 暂时跳过. 
 
-\clearpage
+\chapter{The Klein-Gordon Field}
 
-\section{The Klein-Gordon Field}
-
-\subsection{The Necessity of the Field Viewpoint}
+\section{The Necessity of the Field Viewpoint}
 
 这里提到需要将场量子化的一个原因是:  由于爱因斯坦关系$E = mc^2$的存在, 任何相对论性过程中都有可能出现正负粒子对, 所以用只对单个粒子进行了量子化的理论去解释是不够的. 而对于能量较低的情况, 我们可以考虑一个存在时间极短的态, 此时由于不确定性原理$\Delta E \cdot \Delta t = \hbar /2$的存在, 会产生很多“虚粒子”, 所以\textit{量子场论}, 或着说可以处理数目不定的自由度的相对论性量子理论是必要的. 
 
-同时还有一个原因是关于因果性的. 下面的计算就是经典理论中关于传播振幅$U(t)$的计算, 结果表明它们违背了因果律. 
+同时还有一个原因是关于因果性的. 紧随其后的计算就是经典理论中关于传播振幅$U(t)$的计算, 结果表明它们违背了因果律. 
 
-\begin{note}
-  \mbox{}
-  \begin{enumerate}
-    \item 关于场的简单理解
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox{32em}{
+      \begin{enumerate}
+        \item 关于场的简单理解
 
-    　　在三维空间中, 有$n$个自由度的系统共有$a=3n$个广义坐标, 每个广义坐标可以写为$q_a$. 而当我们考虑无限自由度时, $a$变为连续参数, $q_a$变为函数$q(a)$, 于是我们便得到了“场”. (这是非常粗略的描述, 具体如何从离散变量过渡到场可以参考\textit{Goldstein}第13章) 
-  
-    　　或者可以把场理解为某种实体在时空中的分布, 它是时空坐标$x^\mu$的函数, 是一个基础的力学量. 
+        　　在三维空间中, 有$n$个自由度的系统共有$a=3n$个广义坐标, 每个广义坐标可以写为$q_a$. 而当我们考虑无限自由度时, $a$变为连续参数, $q_a$变为函数$q(a)$, 于是我们便得到了“场”. (这是非常粗略的描述, 具体如何从离散变量过渡到场可以参考\textit{Goldstein}第13章) 
 
-    \mbox{}
+        　　或者直接将场理解为某种实体在时空中的分布, 它是时空坐标$x^\mu$的函数, 是一个基础的力学量. 
 
-    \item 常用的场
-    \begin{itemize}
-      \item $\phi(x)$: 标量场(比如希格斯场)
-      \item $A_\mu(x)$: 矢量场(电磁场)
-      \item $\psi(x)$: 旋量场
-    \end{itemize}
-  \end{enumerate}
-\end{note}
+        \item 常用的场
+        \begin{itemize}
+          \item $\phi(x)$: 标量场(比如希格斯场)
+          \item $A_\mu(x)$: 矢量场(电磁场)
+          \item $\psi(x)$: 旋量场
+        \end{itemize}
+      \end{enumerate}
+    }
+  }
+\end{center}
 
-\subsubsection{P.14 - Eq-1}
+\subsection{P.14 - Eq-1}
 
 当$E = \mathbf{p}^2/2m$时,
 \begin{equation}
@@ -102,14 +142,12 @@
   
 最后一步直接使用高斯积分公式. 
 
-\begin{note}
-一维高斯积分公式
+\textit{注}: \textit{一维高斯积分公式为}
 \begin{equation}
-\int_{-\infty}^{\infty}dx\ e^{-cx^2}e^{\pm ibx} = \sqrt{\frac{\pi}{c}}e^{-b^2/4c}. 
+  \int_{-\infty}^{\infty}dx\ e^{-cx^2}e^{\pm ibx} = \sqrt{\frac{\pi}{c}}e^{-b^2/4c}. 
 \end{equation}
-\end{note}
 
-\subsubsection{P.14 - Eq-2}
+\subsection{P.14 - Eq-2}
 
 当$E = \sqrt{\mathbf{p}^2+m^2}$时, 
 \begin{equation}
@@ -126,7 +164,7 @@
 
 第三行中, 我们把向量$(\mathbf{x}-\mathbf{x}_0)$的方向设为了$z$-axis的正方向. 
 
-\subsubsection{P.15 - Figure 2.1}
+\subsection{P.15 - Figure 2.1}
 
 两个事件之间的间隔是洛伦兹标量, 即
 \begin{equation}
@@ -140,15 +178,19 @@
 \end{equation}
 这就是洛伦兹变换下$x'$满足的关系, 即为图中所画的双曲线. 
 
-\subsection{Elements of Classical Field Theory}
+\section{Elements of Classical Field Theory}
 
 注意这里在讨论初末状态时, 直接将时空坐标零分量$x^0$取为了定值. 实际上在不同的空间点, 初末状态的$x^0$可以取不同的值, 只需要保证边界是类空超曲面即可. 
 
-\begin{remark}
-  我的理解: 只有这样在向空间的无穷远处积分时才能到达时间上的边界. 可以画个图感受一下. 
-\end{remark}
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox[t]{32em}{
+      (\textit{个人理解})只有边界是类空超曲面时, 向空间的无穷远处积分才能到达时间上的边界. 可以画个图感受一下. 
+    }
+  }
+\end{center}
 
-\subsubsection{P15 - (2.2) (2.3)}
+\subsection{P15 - (2.2) (2.3)}
 
 这里的
 \begin{equation}
@@ -166,27 +208,25 @@
 
 而关于这里的边界项$\partial_\mu \bigl(\frac{\partial \mathcal{L}}{\partial(\partial_\mu \phi)}\delta \phi \bigr)$, 注意要分别考虑时间和空间分量(书中也提到了). 
 
-\begin{note}
-  薛定谔场的Lagrangian为
-  \begin{equation}
+\textit{注}: \textit{薛定谔场的Lagrangian为}
+\begin{equation}
+  \boxed{
     \mathcal{L}_{Schr\ddot{o}dinger} = i\hbar\psi^\dagger\frac{\partial \psi}{\partial t} - \frac{\hbar^2}{2m}\boldsymbol{\nabla}\psi^\dagger\boldsymbol{\nabla}\psi - V(\mathbf x)\psi^\dagger\psi.
-  \end{equation}
-\end{note}
+  }
+\end{equation}
 
-\subsubsection{P16 - Hamiltonian Field Theorem}
+\subsection{P16 - Hamiltonian Field Theorem}
 
 这里关于哈密顿形式的场论并没有讲完(没有导出运动方程). 导出运动方程要给出场变量和其共轭动量之间的对易/反对易关系, 再计算Heisenberg equation得到运动方程. 
 
-\begin{note}
-  Heisenberg equation
-  \begin{equation}
-    i\frac{\partial}{\partial t}\mathcal{O} = [\mathcal{O}, H].
-  \end{equation}
-\end{note}
+\textit{注}: \textit{Heisenberg equation为}
+\begin{equation}
+  i\frac{\partial}{\partial t}\mathcal{O} = [\mathcal{O}, H].
+\end{equation}
 
 Hamiltonian Field Theorem实际上是和Lagrangian Field Theorem不同的路径. 而为了保证它能给出正确的运动方程, 正则量子化的方法只有两种, 也就是上面提到的(等时)对易/反对易关系. 
 
-\subsubsection{P17 - Noether's Theorem}
+\subsection{P17 - Noether's Theorem}
 
 这里可以参考Hagen Kleinert课件中的\href{http://users.physik.fu-berlin.de/~kleinert/b6/psfiles/Chapter-7-conslaw.pdf}{解释}以及Weinberg QFT第一册中的7.3节. 
 
@@ -198,24 +238,29 @@ Hagen Kleinert解释了在(2.11)中用Euler-Lagrange方程的含义: 在此处�
 
 \begin{enumerate}
   \item 若某个变换是一个对称变换, 则它会使系统的Lagrangian保持不变, 或是变化至多一个4-divergence, 即(2.10). 需要注意的是, 这个变化对于系统中所有的场分布都成立, 无论是否是满足最小作用量原理的那一个. 
-  \begin{remark}
-    在实际计算时, 我们应该首先检查变换是否保证了(2.10)成立(书中的前两个例子都是这么做的), 并由此得到$\mathcal{J}^{\mu}$的形式. 
-  \end{remark}
+
+  (\textit{评论})在实际计算时, 我们应该首先检查变换是否保证了(2.10)成立(书中的前两个例子都是这么做的), 并由此得到$\mathcal{J}^{\mu}$的形式. 
   \item 对于某个具体的变换(2.9), 我们可以计算得到(2.11)式, 这代表了该变换导致的Lagrangian的变化(对所有的场分布); 而接下来, 对于真实(满足最小作用量原理)的场来说, 考虑其Lagrangian的变化时, 可用Euler-Lagrange方程去掉(2.11)式中第二项; 最后, 由于剩余的一项依旧需要满足(2.10), 所以我们令它等于前面的$\mathcal{J}^{\mu}$, 得到守恒流. 
-  \begin{remark}
-    这一步只是为了得到守恒流的表达式. 
-  \end{remark}
+
+  (\textit{评论})这一步只是为了得到守恒流的表达式. 
 \end{enumerate}
 
-\begin{note}
-  \mbox{}
-  \begin{enumerate}
-    \item 实际上这里的导数需要替换为李导数. 
-    \item 更好的导出守恒流的方式也许是考虑局域变换, 详见Weinberg书中讲解或Hagen Kleinert课件中 8.1.2 一节. 
-  \end{enumerate}
-\end{note}
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox[t]{32em}{
+    
+    \mbox{}
+    
+    注
+      \begin{enumerate}
+        \item 实际上这里的导数需要替换为李导数. 
+        \item 更好的导出守恒流的方式也许是考虑局域变换, 详见Weinberg书中讲解或Hagen Kleinert课件中 8.1.2 一节. 
+      \end{enumerate} 
+    }
+  }
+\end{center}
 
-\subsubsection{P18 - (2.13)}
+\subsection{P18 - (2.13)}
 \begin{equation}
   \begin{aligned}
   \frac{dQ}{dt} &= \int \partial_0 j^0 d^3 x \\
@@ -225,9 +270,9 @@ Hagen Kleinert解释了在(2.11)中用Euler-Lagrange方程的含义: 在此处�
   \end{aligned}
 \end{equation}
 
-\subsection{The Klein-Gordon Field as Harmonic Oscillators} 
+\section{The Klein-Gordon Field as Harmonic Oscillators} 
 
-\subsubsection{P20 - (2.21) \textasciitilde \ (2.28)} \label{subsubsec:KG_Field_expression}
+\subsection{P20 - (2.21) \textasciitilde \ (2.28)} \label{subsubsec:KG_Field_expression}
 
 这里有一种更好的导出标量场表达式的方法. 
 
@@ -274,21 +319,31 @@ Hagen Kleinert解释了在(2.11)中用Euler-Lagrange方程的含义: 在此处�
 
 值得注意的是, 书中把$a(\mathbf{p})$写为了$a_\mathbf{p}$, 实际上理解为函数就可以了. 熟悉了以后这样写比较方便. 
 
-\begin{remark}[个人理解]
-  量子化的步骤: 引入正则对易关系, 然后解对应的运动方程. 
-  
-  例如这里我们首先引入对易关系使得基础力学量$\phi(x),\pi(x)$成为了算符, 然后尝试解K-G方程. 由于量子化后的方程形式和经典情形下的相同, 我们便可以从经典解出发进行尝试. 而对于微分方程, 只要能试出正确的解并验证其完备性, 就可以将其作为通解.  
-\end{remark}
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox[t]{32em}{
+      (\textit{个人理解})量子化的步骤: 引入正则对易关系, 然后解对应的运动方程. 
+      
+      　　例如这里我们首先引入对易关系使得基础力学量$\phi(x),\pi(x)$成为了算符, 然后尝试解K-G方程. 由于量子化后的方程形式和经典情形下的相同, 我们便可以从经典解出发进行尝试. 而对于微分方程, 只要能试出正确的解并验证其完备性, 就可以将其作为通解.  
+    }
+  }
+\end{center}
 
-\subsubsection{P21 - (2.26)下面那一段}
+\subsection{P21 - (2.26)下面那一段}
 
 关于求$a_\mathbf{p}$和$a^{\dagger}_\mathbf{p}$的表达式: 将(2.25)和(2.26)系数凑合适, 加减消去其中一个后, 再同时对两端做积分$\int e^{-i\mathbf{p'\cdot x}} d^3 x$即可. 
 
-\begin{remark}
-  确实很easy, Peskin没有骗你. 
-\end{remark}
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox[t]{32em}{
+      \begin{center}
+        确实很easy, Peskin没有骗你. 
+      \end{center}
+    }
+  }
+\end{center}
 
-\subsubsection{P22 - (2.33)}
+\subsection{P22 - (2.33)}
 
 此处计算(以及相关的许多计算)可能要用到如下的关系: 
 \begin{equation}
@@ -299,7 +354,7 @@ Hagen Kleinert解释了在(2.11)中用Euler-Lagrange方程的含义: 在此处�
   \end{aligned}
 \end{equation}
 
-\subsubsection{P22 - (2.34)}
+\subsection{P22 - (2.34)}
 
 建议记这个公式: 
 \begin{equation}\label{eq: delta_on_function}
@@ -307,44 +362,41 @@ Hagen Kleinert解释了在(2.11)中用Euler-Lagrange方程的含义: 在此处�
 \end{equation}
 其中$x_i$是$f(x)$的根. 参考 \href{https://zh.wikipedia.org/wiki/狄拉克δ函数#與函數的復合}{$\delta$函数的维基百科页面}. 
 
-\subsubsection{P23 - (2.40)} \label{subsubsec: Invar_Delta}
+\subsection{P23 - (2.40)} \label{subsubsec: Invar_Delta}
 
 我们计算另一个类似的不变积分, $\Delta(x; m)$. 
 
-\begin{definition}[Invariant Delta-Function]
-  \begin{equation}
-    \Delta(x; m) = -i\int\frac{d^3 p}{(2\pi)^3} \frac{1}{2E_\mathbf{p}}(e^{-ipx} - e^{+ipx}). 
-  \end{equation}
-\end{definition}
+Invariant Delta-Function: 
+\begin{equation}
+  \Delta(x; m) = -i\int\frac{d^3 p}{(2\pi)^3} \frac{1}{2E_\mathbf{p}}(e^{-ipx} - e^{+ipx}). 
+\end{equation}
+
 
 $\Delta(x; m)$可写为洛伦兹不变的形式(其中$\varepsilon(x)$为符号函数): 
 \begin{equation}
   \Delta(x; m) = -i\int \frac{d^4 p}{(2\pi)^4}(2\pi)\varepsilon(p_0) \delta(p^2 - m^2)e^{-ipx}, 
 \end{equation}
 
-\begin{proof}
-  \begin{equation}
-    \begin{aligned}
-      r. h. s. &= -\frac{i}{(2\pi)^3}\int d^3 p \biggl\{ \int_{0}^{\infty}dp^0\delta\Bigl((p^0)^2 - E_\mathbf{p}^2\Bigr)e^{-ipx} - \int_{-\infty}^{0}dp^0\delta\Bigl((p^0)^2 - E_\mathbf{p}^2\Bigr)e^{-ipx} \biggr\} \\
-               &= -\frac{i}{(2\pi)^3}\int d^3 p \biggl\{ \int_{0}^{\infty}dp^0\frac{1}{2E_\mathbf{p}}\Bigl[\delta(p^0 - E_\mathbf{p}) + \delta(p^0 + E_\mathbf{p}) \Bigr]e^{-ipx} \\
-               &\qquad \qquad \qquad \quad - 
-               \int_{-\infty}^{0}dp^0\frac{1}{2E_\mathbf{p}}\Bigl[\delta(p^0 - E_\mathbf{p}) + \delta(p^0 + E_\mathbf{p}) \Bigr]e^{-ipx}\biggr\} \\
-               &= -\frac{i}{(2\pi)^3} \int d^3 p \frac{1}{2E_\mathbf{p}} \Bigl(e^{-iE_\mathbf{p} t + i \mathbf{p} \cdot \mathbf{x}} - e^{+iE_\mathbf{p} t + i \mathbf{p} \cdot \mathbf{x}}\Bigr) \\ 
-               &= -\frac{i}{(2\pi)^3} \int d^3 p \frac{1}{2E_\mathbf{p}} \Bigl(e^{-iE_\mathbf{p} t + i \mathbf{p} \cdot \mathbf{x}} - e^{+iE_\mathbf{p} t - i \mathbf{p} \cdot \mathbf{x}}\Bigr) \\
-               &= \Delta(x; m). 
-    \end{aligned}
-  \end{equation}
-\end{proof}
+\textit{证明}: 
+\begin{equation}
+  \begin{aligned}
+    r. h. s. &= -\frac{i}{(2\pi)^3}\int d^3 p \biggl\{ \int_{0}^{\infty}dp^0\delta\Bigl((p^0)^2 - E_\mathbf{p}^2\Bigr)e^{-ipx} - \int_{-\infty}^{0}dp^0\delta\Bigl((p^0)^2 - E_\mathbf{p}^2\Bigr)e^{-ipx} \biggr\} \\
+              &= -\frac{i}{(2\pi)^3}\int d^3 p \biggl\{ \int_{0}^{\infty}dp^0\frac{1}{2E_\mathbf{p}}\Bigl[\delta(p^0 - E_\mathbf{p}) + \delta(p^0 + E_\mathbf{p}) \Bigr]e^{-ipx} \\
+              &\qquad \qquad \qquad \quad - 
+              \int_{-\infty}^{0}dp^0\frac{1}{2E_\mathbf{p}}\Bigl[\delta(p^0 - E_\mathbf{p}) + \delta(p^0 + E_\mathbf{p}) \Bigr]e^{-ipx}\biggr\} \\
+              &= -\frac{i}{(2\pi)^3} \int d^3 p \frac{1}{2E_\mathbf{p}} \Bigl(e^{-iE_\mathbf{p} t + i \mathbf{p} \cdot \mathbf{x}} - e^{+iE_\mathbf{p} t + i \mathbf{p} \cdot \mathbf{x}}\Bigr) \\ 
+              &= -\frac{i}{(2\pi)^3} \int d^3 p \frac{1}{2E_\mathbf{p}} \Bigl(e^{-iE_\mathbf{p} t + i \mathbf{p} \cdot \mathbf{x}} - e^{+iE_\mathbf{p} t - i \mathbf{p} \cdot \mathbf{x}}\Bigr) \\
+              &= \Delta(x; m). 
+  \end{aligned}
+\end{equation}
 
-\begin{remark}
-  注意$p^2 - m^2 = (p^0)^2 - \mathbf{p}^2 - m^2 = (p^0)^2 - E_\mathbf{p}^2$. 
-\end{remark}
+注意其中$p^2 - m^2 = (p^0)^2 - \mathbf{p}^2 - m^2 = (p^0)^2 - E_\mathbf{p}^2$. 
 
-\subsection{The Klein-Gordon Field in Space-Time}
+\section{The Klein-Gordon Field in Space-Time}
 
 我们在此笔记的 \ref{subsubsec:KG_Field_expression} 中就已经得到了包含时间的形式, 无须再考虑这一步. 
 
-\subsubsection{P27 - (2.52)}
+\subsection{P27 - (2.52)}
 这里考虑\href{https://zh.wikipedia.org/wiki/柯西积分定理}{柯西积分定理}, 
 沿$L_1, L_2$构成的闭合回路积分值为0. 
 
@@ -387,24 +439,28 @@ $\Delta(x; m)$可写为洛伦兹不变的形式(其中$\varepsilon(x)$为符号�
 \end{equation}
 将积分结果带回即可得到书中(2.52)式. 
 
-\subsubsection{P28 - (2.53)}
+\subsection{P28 - (2.53)}
 
 这个commutator用此笔记的 \ref{subsubsec: Invar_Delta} 中的$\Delta$可以表示为: 
 \begin{equation}
   [\phi(x), \phi(y)] = i\Delta(x-y; m). 
 \end{equation}
 
-\begin{remark}
-  可以这样解释的原因是: 在量子力学中我们将两个态的内积的模的平方解释为该态可被观测到的概率, 是可观测量. 而书中前面虽将$\phi(x) |0\rangle$类比为了$|x\rangle$, 但没有赋予其其他含义. (可以理解为这个传播振幅无法与可观测量联系起来, 故无法传递信息). 而算符$\phi(x), \phi(y)$的对易关系与量子力学中算符的对易关系的含义相同. 
-\end{remark}
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox[t]{32em}{
+      (\textit{个人理解})可以这样解释的原因是: 在量子力学中我们将两个态的内积的模的平方解释为该态可被观测到的概率, 是可观测量. 而书中前面虽将$\phi(x) |0\rangle$类比为了$|x\rangle$, 但没有赋予其其他含义. (可以理解为这个传播振幅无法与可观测量联系起来, 故无法传递信息). 而算符$\phi(x), \phi(y)$的对易关系与量子力学中算符的对易关系的含义相同. 
+    }
+  }
+\end{center}
 
-\subsubsection{P30 - (2.54)}
+\subsection{P30 - (2.54)}
 
 第二行第二项的$e$指数项中除了把$E_\mathbf{p}$写为了$-(-E_\mathbf{p})$以外, 还做了变换$\mathbf{p} \rightarrow -\mathbf{p}$. 
 
 最后一步反着算比较容易: 在最后一行的式子中计算关于$p^0$的积分, 从下方闭合积分路径, 使用留数定理就可以得到第二行的表达式(最后一行表达式中的那个$(-1)$是因为从下方闭合了积分路径); 而这里当$(x_0 - y_0)>0$才从下方闭合积分路径的原因是只有这样$e^{-ip(x - y)}$才在无穷远处为零. 
 
-\subsubsection{P30 - (2.56)}
+\subsection{P30 - (2.56)}
 
 首先注意: 
 \begin{equation}
@@ -421,69 +477,74 @@ $\Delta(x; m)$可写为洛伦兹不变的形式(其中$\varepsilon(x)$为符号�
 
 第三行: Klein-Gordon equation. 
 
-\subsubsection{P30 - (2.57)}
+\subsection{P30 - (2.57)}
 
 给等式两边作用微分算符$(\partial^2 + m^2)$, 再比较两边的形式, 就可以得到(2.57)下面的表达式. 
 
-\subsubsection{P31 - (2.59)}
+\subsection{P31 - (2.59)}
 
 这里极点的计算有个小trick: 我们得到$p^0 = \pm\sqrt{E_\mathbf{p}^2 - i\epsilon}$后, 对小量$\epsilon$展开可得$p^0 = \pm (E_\mathbf{p} - \frac{1}{2}i\epsilon)$, 这时只要令$\epsilon^* = \frac{1}{2}\epsilon$即可(都是同阶无穷小). 
 
 \clearpage
 
-\section{The Dirac Field}
+\chapter{The Dirac Field}
 
-\subsection{Lorentz Invariance in Wave Equations}
+\section{Lorentz Invariance in Wave Equations}
 
-\begin{note}
-  本书中的变换都是对场本身进行操作. (\textit{active} point of view)
-\end{note}
+注意: 本书中的变换都是对场本身进行操作. (\textit{active} point of view)
 
-\subsubsection{P36 - (3.3)}
+\subsection{P36 - (3.3)}
 
 这里只要把$(\Lambda^{-1}x)$看作是$x$的某个函数$y(x) = \Lambda^{-1}x$, 做复合函数的求导即可. 等式右端最后那个括号的意思是前面的函数$\partial_{\nu}\phi$在$\Lambda^{-1}x$处取值. 
 
-\subsubsection{P39 - (3.15) (3.16)}
+\subsection{P39 - (3.15) (3.16)}
 
 $J^3 = J^{12}$中, 3是(3.15)中的的上标, 12是中间没有序号的式子中的上标. 
 
 从这里开始会用全反对称的张量来表示矢量. 它们所带有的信息是一样的, 只是形式上对称的量会更方便使用. 而同时, 后面的参数也被全反对称化了, 也因此多了个$1/2$的系数. 
 
-\begin{remark}
-  一开始学到这里的时候我很迷惑, 不过习惯了就好了. 对这些含有张量的表达式或运算感到疑惑的时候, 把分量具体写出来算一遍总是个好办法. 
-\end{remark}
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox[t]{32em}{
+      (\textit{评论})一开始学到这里的时候我很迷惑, 不过习惯了就好了. 对这些含有张量的表达式或运算感到疑惑的时候, 把分量具体写出来算一遍总是个好办法. 
+    }
+  }
+\end{center}
 
-\subsubsection{P39 - (3.17)}
+\subsection{P39 - (3.17)}
 
 这是Lorentz Algebra的定义, 并不是由计算(3.16)的对易\textit{推导}出来的. 
 
-\subsubsection{P39 - (3.18)}
+\subsection{P39 - (3.18)}
 
 洛伦兹群在矢量空间的具体表示. $\mu\nu$指标代表着6个洛伦兹变换(3个boost和3个rotation), $\alpha$和$\beta$代表矢量的4个分量. 
 
 相当重要的一个例子, 后面也要用到. 
-\begin{remark}
-  注意区分矢量空间和其他表示空间 (基本都是旋量空间) 的指标. 一般后者会被省略. 
-\end{remark}
 
-\subsubsection{P40 - (3.19)}
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox[t]{32em}{
+      (\textit{评论})注意区分矢量空间和其他表示空间 (基本都是旋量空间) 的指标. 一般后者会被省略. 
+    }
+  }
+\end{center}
+
+\subsection{P40 - (3.19)}
 
 写成有限形式就是$V' = \exp{(-\frac{i}{2}\omega_{\mu\nu}\mathcal{J}^{\mu\nu})}V$. (对比(3.13))
 
-\subsection{The Dirac Equation}
+\section{The Dirac Equation}
 
-\begin{note}
-  狄拉克旋量具体可写为:  
-  \begin{equation}
-    \psi = \left( \begin{array}{c} \psi_1 \\ \psi_2 \\ \psi_3 \\ \psi_4 \end{array} \right), 
-  \end{equation}
-  其狄拉克共轭为: 
-  \begin{equation}
-    \overline{\psi} = \psi^\dagger \gamma^0 = (\psi^\dagger_1, \psi^\dagger_2, \psi^\dagger_3, \psi^\dagger_4)\gamma^0. 
-  \end{equation}
-\end{note}
+狄拉克旋量具体可写为:  
+\begin{equation}
+  \psi = \left( \begin{array}{c} \psi_1 \\ \psi_2 \\ \psi_3 \\ \psi_4 \end{array} \right), 
+\end{equation}
+其狄拉克共轭为: 
+\begin{equation}
+  \overline{\psi} = \psi^\dagger \gamma^0 = (\psi^\dagger_1, \psi^\dagger_2, \psi^\dagger_3, \psi^\dagger_4)\gamma^0. 
+\end{equation}
 
-\subsubsection{P40 - (3.23)}
+\subsection{P40 - (3.23)}
 
 \begin{equation}
   \begin{aligned}
@@ -518,7 +579,7 @@ $J^3 = J^{12}$中, 3是(3.15)中的的上标, 12是中间没有序号的式子�
 \end{equation}
 考虑系数$(\frac{i}{4})^2$, 即可证明(3.23)满足(3.17).
 
-\subsubsection{P42 - (3.28)下面的两个式子}
+\subsection{P42 - (3.28)下面的两个式子}
 
 第一个式子的证明: 
 \begin{equation}
@@ -538,11 +599,11 @@ $l.h.s = r.h.s$, 即证.
 
 第二个式子中, 把左边展开后忽略二阶小量即可. 
 
-\subsubsection{P42 - (3.31)下方验证洛伦兹协变的式子}
+\subsection{P42 - (3.31)下方验证洛伦兹协变的式子}
 
 对第一行的$\gamma^\mu \partial_\mu$做变换后会多出来一个$\Lambda^{-1}$的原因参考书中式(3.3).
 
-\subsubsection{P43 - (3.35)}
+\subsection{P43 - (3.35)}
 
 小技巧: 
 \begin{equation}
@@ -553,13 +614,13 @@ $l.h.s = r.h.s$, 即证.
   \frac{\partial (\partial_\mu A_\nu)}{\partial (\partial_\rho A_\sigma)} = \delta_\mu^{\phantom{1}\rho}\delta_\nu^{\phantom{1}\sigma}.
 \end{equation}
 
-\subsubsection{P44 - (3.38)}
+\subsection{P44 - (3.38)}
 
 注意这里的$\sigma^2$指$\sigma^i, i=2$. (我第一次遇见的时候以为是$\boldsymbol{\sigma}^2$, 想了老半天)
 
-\subsection{Free-Particle Solutions of the Dirac Equation}
+\section{Free-Particle Solutions of the Dirac Equation}
 
-\subsubsection{P46 - (3.49)}\label{subsubsec: Boost_u_p}
+\subsection{P46 - (3.49)}\label{subsubsec: Boost_u_p}
 
 \begin{enumerate}
   \item 最后一步要用到(3.48)的结果, 即$\sqrt{m}\ e^{\eta/2} = \sqrt{E + p^3}$, 以及$\sqrt{m}\ e^{-\eta/2} = \sqrt{E - p^3}$. 
@@ -568,29 +629,38 @@ $l.h.s = r.h.s$, 即证.
     \left( \begin{array}{c} \left( \begin{array}{cc} \sqrt{E-p^3} & 0 \\ 0 & \sqrt{E+p^3} \end{array} \right)\xi \\ \left( \begin{array}{cc} \sqrt{E+p^3} & 0 \\ 0 & \sqrt{E-p^3} \end{array} \right)\xi \end{array} \right), 
   \end{equation}
   \item 这里对$u(p_0)$进行boost后得到了$u(p)$, 完整形式实际上是$u'(\Lambda p_0) = \Lambda_{\frac{1}{2}}u(p_0)$ (boost后应有prime), 即$u'(p) = \Lambda_{\frac{1}{2}}u(\Lambda^{-1}p)$, 与书中(3.8)式形式一致. (在推导(3.110)时会用到)
-  \begin{note}
-    (3.8)是坐标空间下的变换规则, 但按照书中(3.2)式的思想, 动量空间中的变换规则也应该是一致的. 最直接的验证方法是将书中(3.46)式($u(p)$为满足此方程的解)写为$(\gamma^\mu(\Lambda p)_\mu - m)u(\Lambda p) = 0$, 利用书中(3.29)式得到含有$\Lambda_{1/2}$的形式后, 再和原式做比较. 
+  \begin{center}
+    \framebox[1.15\width][s]{
+      \parbox[t]{32em}{
 
-    \mbox{}
+        \mbox{}
 
-    附: 另外一个直接推导
+        注: 
 
-    由于$\psi(x) = u(p)e^{-ip\cdot x}$, 所以进行变换$\psi(x) \rightarrow \psi'(x) = \Lambda_{\frac{1}{2}}\psi(\Lambda^{-1}x)$后, 对$u(p)$有
-    \begin{equation}
-      \begin{aligned}
-        u'(p)e^{-ip\cdot x} &= \Lambda_{\frac{1}{2}}u(p)e^{-ip\cdot \Lambda^{-1}x} \\
-        u'(p)e^{-ip\cdot x} &= \Lambda_{\frac{1}{2}}u(\Lambda^{-1}p')e^{-i\Lambda^{-1}p'\cdot \Lambda^{-1}x} \\
-        u'(p)e^{-ip\cdot x} &= \Lambda_{\frac{1}{2}}u(\Lambda^{-1}p')e^{-ip'\cdot x}, 
-      \end{aligned}
-    \end{equation}
-    所以对$\psi(x)$的做的变换实际上使得
-    \begin{equation}
-      u(p) \rightarrow u'(p) = \Lambda_{\frac{1}{2}}u(\Lambda^{-1}p). 
-    \end{equation}
-  \end{note}
+        (3.8)是坐标空间下的变换规则, 但按照书中(3.2)式的思想, 动量空间中的变换规则也应该是一致的. 最直接的验证方法是将书中(3.46)式($u(p)$为满足此方程的解)写为$(\gamma^\mu(\Lambda p)_\mu - m)u(\Lambda p) = 0$, 利用书中(3.29)式得到含有$\Lambda_{1/2}$的形式后, 再和原式做比较.
+
+        \mbox{}
+
+        附另外一个直接推导: 
+
+        由于$\psi(x) = u(p)e^{-ip\cdot x}$, 所以进行变换$\psi(x) \rightarrow \psi'(x) = \Lambda_{\frac{1}{2}}\psi(\Lambda^{-1}x)$后, 对$u(p)$有
+        \begin{equation}
+          \begin{aligned}
+            u'(p)e^{-ip\cdot x} &= \Lambda_{\frac{1}{2}}u(p)e^{-ip\cdot \Lambda^{-1}x} \\
+            u'(p)e^{-ip\cdot x} &= \Lambda_{\frac{1}{2}}u(\Lambda^{-1}p')e^{-i\Lambda^{-1}p'\cdot \Lambda^{-1}x} \\
+            u'(p)e^{-ip\cdot x} &= \Lambda_{\frac{1}{2}}u(\Lambda^{-1}p')e^{-ip'\cdot x}, 
+          \end{aligned}
+        \end{equation}
+        所以对$\psi(x)$的做的变换实际上使得
+        \begin{equation}
+          u(p) \rightarrow u'(p) = \Lambda_{\frac{1}{2}}u(\Lambda^{-1}p). 
+        \end{equation}
+      }
+    }
+      \end{center}
 \end{enumerate}
 
-\subsubsection{P46 - (3.50)}
+\subsection{P46 - (3.50)}
 
 在只考虑3-direction时, $p\cdot \sigma = p^0 + p^3\sigma^3$, 已经是对角化的形式, 取正根即可. 
 
@@ -605,17 +675,17 @@ $l.h.s = r.h.s$, 即证.
   \end{aligned}
 \end{equation}
 
-\subsubsection{P46 - (3.51)}
+\subsection{P46 - (3.51)}
 
 记得把(3.50)代回到(3.45)后再做计算. 
 
-\subsection{Dirac Matrices and Dirac Field Bilinears}
+\section{Dirac Matrices and Dirac Field Bilinears}
 
-\subsubsection{P50 - (3.72)}
+\subsection{P50 - (3.72)}
 
 这里可以自己验证一下$\bar{\psi} \gamma^5 \psi$在连续洛伦兹变换下是标量.
 
-\subsubsection{P51 - (3.76)}
+\subsection{P51 - (3.76)}
 
 利用书中(3.72), 
 \begin{equation}
@@ -623,11 +693,11 @@ $l.h.s = r.h.s$, 即证.
 \end{equation}
 而$\psi^\dagger \gamma^0 \gamma^\mu$中的两个$\gamma$相乘会得到对角形式的矩阵. 因此整个表达式只与$\psi_L$有关, 为左手流. 
 
-\subsubsection{P51 - (3.77)}
+\subsection{P51 - (3.77)}
 
 建议对16个分量直接进行验证. 
 
-\subsubsection{P51 - (3.78)}
+\subsection{P51 - (3.78)}
 
 将矩阵的元素(即带有下标的形式, 例如$\epsilon_{\alpha \gamma}$)具体写出来后, 由于这些元素只是数字(\textit{c-number}), 所以可以随便挪动位置. (矩阵乘法的分量形式: $(AB)_{ab} = \sum_c A_{ac} B_{cb}$) 后面的计算中经常要用到这个技巧. 
 
@@ -643,9 +713,9 @@ $l.h.s = r.h.s$, 即证.
 \end{equation}
 第三行中调换了$\beta$和$\delta$的位置. 
 
-\subsection{Quantization of the Dirac Field}
+\section{Quantization of the Dirac Field}
 
-\subsubsection{{P52} - (3.84)}
+\subsection{{P52} - (3.84)}
 \begin{equation}
   \begin{aligned}
     \mathcal{H} &= i {\psi}^\dagger \dot{\psi} - \mathcal{L} \\
@@ -654,49 +724,53 @@ $l.h.s = r.h.s$, 即证.
   \end{aligned}
 \end{equation}
 
-\begin{remark}
-  注意$\gamma^\mu \partial_\mu = \gamma^0 \partial_0 + \gamma^i \partial_i$. 不要习惯性地写成减号. 
-\end{remark}
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox[t]{32em}{
+      (\textit{评论})注意$\gamma^\mu \partial_\mu = \gamma^0 \partial_0 + \gamma^i \partial_i$. 不要习惯性地写成减号. 
+    }
+  }
+\end{center}
 
-\subsubsection{P54 - (3.90)}
+\subsection{P54 - (3.90)}
 
 利用$u^s(\mathbf{p})e^{i\mathbf{p} \cdot \mathbf{x}}$是$h_D$的本征函数的性质简化书中(3.84), 之后的计算很简单. 
 
-\subsubsection{P59 - (3.110)附近}
+\subsection{P59 - (3.110)附近}
 \begin{enumerate}
   \item 注意$p\cdot x = \Lambda p\cdot \Lambda x$(书中(3.4)式).
   \item (3.110)上面一行里的那个关系在此笔记的 \ref{subsubsec: Boost_u_p} 中已经证明过了. 
 \end{enumerate}
 
-\subsection{Discrete Symmetries of the Dirac Theory}
+\section{Discrete Symmetries of the Dirac Theory}
 
-\subsubsection{P67 - 中间没有序号的式子} 
+\subsection{P67 - 中间没有序号的式子} 
 
 这里是说$\psi(-t, \mathbf{x})|0\rangle$应该是正频项的和$e^{-iHt}\psi(\mathbf{x})|0\rangle$, 但用时间反演算符计算得到的结果却是负频项的和$e^{iHt}[T\psi(\mathbf{x})T]|0\rangle$. 它们之间是矛盾的. 
 
-\subsubsection{P68 - (3.134)}
+\subsection{P68 - (3.134)}
 
 $\xi(\uparrow)$和$\xi(\downarrow)$是$\boldsymbol{\sigma}\cdot\mathbf{\hat{n}}$的本征态. 参见\textit{Modern Quantum Mechanics - J.J.Sakurai}: \textbf{Problem 1.9}. 
 
-\subsubsection{P68 - (3.136)}
+\subsection{P68 - (3.136)}
 
 这里可以把$\eta^s$写为$\xi^{-s}$的原因在(3.112)上面的那一大段话中有讲.
 
-\subsubsection{P70 - (3.147)}
+\subsection{P70 - (3.147)}
 
 关于这里第三步中出现的负号, 仍需讨论. 
 
 \clearpage
 
-\section{Interacting Fields and Feynman Diagrams}
+\chapter{Interacting Fields and Feynman Diagrams}
 
-\subsection{Perturbation Theory --- Philosophy and Examples}
+\section{Perturbation Theory --- Philosophy and Examples}
 
 跳过. 
 
-\subsection{Perturbation Expansion of Correlation Functions}
+\section{Perturbation Expansion of Correlation Functions}
 
-\subsubsection{P84 - (4.21)}
+\subsection{P84 - (4.21)}
 
 Figure 4.1所表示的实际上是关于$T\{H_I(t_1) H_I(t_2)\}$的积分, 所以为了便于理解, 可以给等式左边的被积函数也加上编时记号$T$. 
 
@@ -706,11 +780,15 @@ Figure 4.1所表示的实际上是关于$T\{H_I(t_1) H_I(t_2)\}$的积分, 所�
 \end{equation}
 然后互换$t_1$, $t_2$, 由于编时记号的存在, 被积函数不变. 由此, 上半三角和下半三角上的积分完全相等. 
 
-\begin{remark}
-  也可以这么考虑: 由于编时记号的存在, 被积函数关于直线$t_1 = t_2$对称. 
-\end{remark}
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox[t]{32em}{
+      (\textit{评论})也可以这么考虑: 由于编时记号的存在, 被积函数关于直线$t_1 = t_2$对称. 
+    }
+  }
+\end{center}
 
-\subsubsection{P86 - (4.25)}
+\subsection{P86 - (4.25)}
 
 我们当然可以直接把(4.25)带入(4.24)来验证它是正确的, 但也可以由如下方法得到这个解: 
 \begin{enumerate}
@@ -720,56 +798,61 @@ Figure 4.1所表示的实际上是关于$T\{H_I(t_1) H_I(t_2)\}$的积分, 所�
 \end{enumerate}
 最后得到的表达式即(4.25). 
 
-\subsubsection{P87 - (4.29)}
+\subsection{P87 - (4.29)}
 
 这里是用$e^{-iHT}$从右侧作用到了$\langle 0|$上. 
 
-\subsubsection{P87 - (4.31)}
+\subsection{P87 - (4.31)}
 
 把前面的表达式里的$U$都拆开以后再加上编时记号, 就可以随意挪动位置消项, 最后可以得到这个结果. 
 
-\subsection{Wick's Theorem}
+\section{Wick's Theorem}
 
 最后的证明展开后按正规序排好, 再反复使用$[A, BC] = B[A, C] + [A, B]C$即可. 
 
 这里只给出了Bosonic field的Wick's Theorem, 对于Fermionic field, 还要根据场的对换次数确定符号(4.7节会讲). 
 
-\subsection{Feynman Diagrams}
+\section{Feynman Diagrams}
 
-\subsubsection{P95 - \textit{momentum-space Feynman rules}}
+\subsection{P95 - \textit{momentum-space Feynman rules}}
 
 其中第4条具体为: $(2\pi)^4 \delta(\sum\limits_i p_i)$. 
 
-\subsubsection{P96 - (4.49)}
+\subsection{P96 - (4.49)}
 
 $(2\pi)^4 \delta(0)$可以理解为$\int d^4x e^{ip\cdot 0}$, 即$\int d^4x$, 其值为全空间体积($2T\cdot V)$. 
 
-\subsubsection{P96 - (4.51)下面的式子}
+\subsection{P96 - (4.51)下面的式子}
 
 \textit{The $1/n_i !$ is the symmetry factor coming from interchanging the $n_i$ copies of $V_i$.}
-\begin{remark}[个人理解]\mbox{}
   
-  这个对称系数来自于重复计算了“交换顶点”带来的系数, 即(4.45)下方的第一项所计算的\textit{interchange of vertices}. 
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox[t]{32em}{
+      (\textit{个人理解})
 
-  对于由$x-y$和两个\textbf{8}字形的泡泡组成的费曼图来说, 交换两个泡泡的顶点是对称操作, 直接由Wick's theorem计算时并不会引入$2!$ (3个泡泡就是$3!$); 而若直接根据\textit{momentum-space Feynman rules}写出表达式时, 我们默认引入了这个系数并抵消掉了泰勒展开的系数, 因此这里需要给$V_i$乘$1/n_i !$. 
+      　　这个对称系数来自于重复计算了“交换顶点”带来的系数, 即(4.45)下方的第一项所计算的\textit{interchange of vertices}. 
 
-  对于其他的泡泡, 只有交换部分顶点才是对称操作, 因此经过计算总会得到$1/n_i !$这个系数(可以试试算两个“糖葫芦形”的泡泡). 不过这也是合理的, 因为忽略内部的顶点交换的话, “交换顶点”在某种程度上和“交换两个图”是一样的. 因此最后效果就是书中所说的\textit{The $1/n_i !$ is the symmetry factor coming from interchanging the $n_i$ copies of $V_i$.}
+      　　对于由$x-y$和两个\textbf{8}字形的泡泡组成的费曼图来说, 交换两个泡泡的顶点是对称操作, 直接由Wick's theorem计算时并不会引入$2!$ (3个泡泡就是$3!$); 而若直接根据\textit{momentum-space Feynman rules}写出表达式时, 我们默认引入了这个系数并抵消掉了泰勒展开的系数, 因此这里需要给$V_i$乘$1/n_i !$. 
 
-\end{remark}
+      　　对于其他的泡泡, 只有交换部分顶点才是对称操作, 因此经过计算总会得到$1/n_i !$这个系数(可以试试算两个“糖葫芦形”的泡泡). 不过这也是合理的, 因为忽略内部的顶点交换的话, “交换顶点”在某种程度上和“交换两个图”是一样的. 因此最后效果就是书中所说的\textit{The $1/n_i !$ is the symmetry factor coming from interchanging the $n_i$ copies of $V_i$.}
+    }
+  }
+\end{center}
 
-\subsubsection{P97 - (4.52)}
+\subsection{P97 - (4.52)}
 
 关于怎么由上面的式子得到本式的第一行: 注意这里的每一个$n_i$的取值范围都是0到$\infty$, 无论是先乘后加还是先加后乘, 展开后得到的结果都是一样的. 可以试着算一个具体的有限的例子, 譬如$i = 1, 2, 3$, $n_i = 0, 1$.   
 
-\subsection{Cross Sections and the \textit{S}-Matrix}
+\section{Cross Sections and the \textit{S}-Matrix}
 
 这一节讲怎么由$S$-Matrix计算截面. 最重要的公式是书中的(4.79)和(4.86). 
 
-\subsubsection{P100 - (4.59) \& P101 - (4.62)}
+\subsection{P100 - (4.59) \& P101 - (4.62)}
 
 把这两个式子当作截面和衰变率的定义记下来就可以, QFT里的定义是最好的定义. 
 
-\subsubsection{P102 - (4.65)}
+\subsection{P102 - (4.65)}
 
 用$\langle \mathbf{x}|$同时作用在等式两边: 
 \begin{equation}
@@ -782,21 +865,25 @@ $(2\pi)^4 \delta(0)$可以理解为$\int d^4x e^{ip\cdot 0}$, 即$\int d^4x$, �
   \end{aligned}
 \end{equation}
 
-\subsubsection{P102最下面的一大段话}
+\subsection{P102最下面的一大段话}
 
-\begin{remark}[个人理解]
-  中间的“Note that we use the Heisenberg picture:...”这一段是在说in state和out state是由含时算符的本征态建立的, 而这些算符本身会随着时间演化, 因此它们不共用同一组基, 所以它们之间会有nontrivial overlap. 
-\end{remark}
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox[t]{32em}{
+      (\textit{个人理解})中间的“Note that we use the Heisenberg picture:...”这一段是在说in state和out state是由含时算符的本征态建立的, 而这些算符本身会随着时间演化, 因此它们不共用同一组基, 所以它们之间会有nontrivial overlap. 
+    }
+  }
+\end{center}
 
-\subsubsection{P103 - (4.68)}
+\subsection{P103 - (4.68)}
 
 式中的$e^{-i\mathbf{b}\cdot\mathbf{k_{\mathcal{B}}}}$是\textbf{平移算符}(translation operator). 可以参考J. J. Sakurai书中(1.6.32)式附近的说明. 
 
-\subsubsection{P104 - (4.74)}
+\subsection{P104 - (4.74)}
 
 因为考虑的是落在$d^3p_1\cdots d^3p_n$这个小区域里的概率, 所以这里的$\mathcal{P}$应该写为$d\mathcal{P}$. 也因此, 等式右侧只有一个积分号, 利用书中(4.66)式可以将所有$|\phi(\mathbf{p}_n)|^2$归一化得到分子上那个$1$. 
 
-\subsubsection{P105 - (4.77)}
+\subsection{P105 - (4.77)}
 
 最后一行利用笔记中(\ref{eq: delta_on_function})式计算即可. 
 
@@ -821,39 +908,40 @@ $(2\pi)^4 \delta(0)$可以理解为$\int d^4x e^{ip\cdot 0}$, 即$\int d^4x$, �
 \end{equation}
 即$\delta^{(2)}(k_{\mathcal{A}}^{\bot} - \bar{k}_{\mathcal{A}}^{\bot})$.
 
-\subsubsection{P106 - (4.78)}
+\subsection{P106 - (4.78)}
 
 这里是把$\mathbf{k}_{\mathcal{A}}, \mathbf{k}_{\mathcal{B}}, \bar{\mathbf{k}}_{\mathcal{A}}, \bar{\mathbf{k}}_{\mathcal{B}}$全部用中心值$\mathbf{p}_{\mathcal{A}}, \mathbf{p}_{\mathcal{B}}$代替了. 
 
-\subsection{Computing \textit{S}-Matrix Elements from Feynman Diagrams}
+\section{Computing \textit{S}-Matrix Elements from Feynman Diagrams}
 
 这一节最重要的是书中的(4.103)和(4.104)两式, 以及配套的Feynman rules. 
 
-\subsubsection{P109 - (4.89)}
+\subsection{P109 - (4.89)}
 
 $e^{-iH(2t)}$可以写为$T(\exp[-i\int_{-T}^{T}dt\ H_I(t)])$的原因参考书中(4.28)和(4.29).
 
-\subsection{Feynman Rules for Fermions}
+\section{Feynman Rules for Fermions}
 
-\subsubsection{P119最上方的费曼图中的动量方向}
+\subsection{P119最上方的费曼图中的动量方向}
 
 前面一段话里提到了初态粒子对应入射(ingoing)动量, 而由于这种态总是与$\psi$或$\bar{\psi}$中的$a_{\mathbf{p}}$或$b_{\mathbf{p}}$形成contraction, 并且会乘上$e^{-ip\cdot x}$, 故$e^{-ip\cdot x}$总是对应着入射(ingoing)动量. 反之, $e^{+ip\cdot x}$总是对应着出射(outgoing)动量. 
 
 根据这个规则, 可以由书中费曼图底下式子中的$e^{-iq\cdot (x-y)}$一项确定费曼图中的动量方向. 
 
-\subsection{Feynman Rules for Quantum Electrodynamics}
+\section{Feynman Rules for Quantum Electrodynamics}
+没有需要什么特别说明的, 跳过. 
 
 \clearpage
 
-\section{Elementary Processes of Quantum Electrodynamics}
+\chapter{Elementary Processes of Quantum Electrodynamics}
 
-\subsection{\texorpdfstring{$e^+e^- \rightarrow \mu^+\mu^-$}:: Introduction}
+\section{\texorpdfstring{$e^+e^- \rightarrow \mu^+\mu^-$}:: Introduction}
 
-\subsubsection{P132 - (5.2)上面那个式子}
+\subsection{P132 - (5.2)上面那个式子}
 
 由于$\mathcal{M}$只是个\textit{c-number}, 并非矩阵, 故$\mathcal{M}^\dagger = \mathcal{M}^*$
 
-\subsubsection{P132 - (5.3)上面那个求平均}
+\subsection{P132 - (5.3)上面那个求平均}
 
 考虑入射粒子流由$n$种不同的粒子组成, 发现每种粒子的概率为$p_n(\sum p_n = 1)$, 那么总截面即为每种粒子的分截面的总和, 即
 \begin{equation}
@@ -863,20 +951,20 @@ $e^{-iH(2t)}$可以写为$T(\exp[-i\int_{-T}^{T}dt\ H_I(t)])$的原因参考书�
 
 由于入射流的粒子情况是已知的, 粒子总数目固定, 每种粒子所占的比例已知, 所以求总截面时计算各分截面的期望; 而出射流的粒子情况未知, 探测器忽略了自旋信息, 故需对所有类型的事件的数目直接求和. 
 
-\subsection{\texorpdfstring{$e^+e^- \rightarrow \mu^+\mu^-$}:: Helicity Structure}
+\section{\texorpdfstring{$e^+e^- \rightarrow \mu^+\mu^-$}:: Helicity Structure}
 
 
 
 
 \clearpage
 
-\section{Radiative Corrections: Introduction}
+\chapter{Radiative Corrections: Introduction}
 
-\section{Radiative Corrections: Some Formal Developments}
+\chapter{Radiative Corrections: Some Formal Developments}
 
 \clearpage
 
-\section{Invitation: Ultraviolet Cutoffs and Critical Fluctuations}
+\chapter{Invitation: Ultraviolet Cutoffs and Critical Fluctuations}
 
 介绍性的章节. 
 
@@ -884,55 +972,63 @@ $e^{-iH(2t)}$可以写为$T(\exp[-i\int_{-T}^{T}dt\ H_I(t)])$的原因参考书�
 
 \clearpage
 
-\section{Functional Methods}
+\chapter{Functional Methods}
 
-\subsection{Path Integrals in Quantum Mechanics}
+\section{Path Integrals in Quantum Mechanics}
 
 这一节随便看看就行了, 推荐去看Sakurai或者Srednicki相关的部分. 下一节开始才是重要的部分. 
 
-\subsubsection{P276 - (9.2)}
+\subsection{P276 - (9.2)}
 
 参考书中(9.1), $U(x_a, x_b; T)$实际上有着$e^{i \cdot (\text{phase})}$的形式. 
 
-\subsubsection{P278 - (9.4)}
+\subsection{P278 - (9.4)}
 
-\begin{remark}
-  简单的理解: 把一条路径看成有无限个自变量($x_n, n \rightarrow \infty$)的多元函数, 那么在这个由$x_n$张成的希尔伯特空间里积分的形式即为本式等号右边的形式. 
-\end{remark}
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox{32em}{
+      (\textit{评论})简单的理解: 把一条路径看成有无限个自变量($x_n, n \rightarrow \infty$)的多元函数, 那么在这个由$x_n$张成的希尔伯特空间里积分的形式即为本式等号右边的形式. 
+    }
+  }
+\end{center}
 
-\subsubsection{P279 - (9.5)}
+\subsection{P279 - (9.5)}
 
 第一行的$[1-\frac{i\epsilon}{\hbar}V(x_b)+\cdots]$是展开两次后的结果: 先做近似$\exp(f(x)) = 1 + f(x) + \cdots$, 再对$V(\frac{x_b + x'}{2})$在$x_b$附近做泰勒展开.  
 
-\subsubsection{P281 - Weyl order}
+\subsection{P281 - Weyl order}
 
 第一项中的$q$向左作用在bra上, 第二项中左右各一个, 第三项向右作用在ket上, 这种排序下左侧的结果和右侧的一致. 
 
-\subsection{Functional Quantization of Scalar Fields}
+\section{Functional Quantization of Scalar Fields}
 
-\subsubsection{P282 - (9.14)}
+\subsection{P282 - (9.14)}
 
-\begin{remark}
-  自己的理解: 考虑离散形式(9.11)的话, 利用高斯积分积掉$\pi$的相关项就很自然了(不用考虑指数上那个对时间$t$的积分). 
-\end{remark}
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox{32em}{
+        (\textit{个人理解})考虑离散形式(9.11)的话, 利用高斯积分积掉$\pi$的相关项就很自然了(不用考虑指数上那个对时间$t$的积分). 
+    }
+  }
+\end{center}
 
-\subsection{The Analogy Between Quantum Field Theory and Statistical Mechanics}
+\section{The Analogy Between Quantum Field Theory and Statistical Mechanics}
 
 
-
-\clearpage
-
-\section{Systematics of Renormalization}
-
-\section{Renormalization and Symmetry}
-
-\section{The Renormalization Group}
-
-\section{Critical Exponents and Scalar Field Theory}
 
 \clearpage
 
-\section{Invitation: The Parton Model of Hadron Structure}
+\chapter{Systematics of Renormalization}
+
+\chapter{Renormalization and Symmetry}
+
+\chapter{The Renormalization Group}
+
+\chapter{Critical Exponents and Scalar Field Theory}
+
+\clearpage
+
+\chapter{Invitation: The Parton Model of Hadron Structure}
 
 介绍性的章节. 
 
@@ -940,68 +1036,8 @@ $e^{-iH(2t)}$可以写为$T(\exp[-i\int_{-T}^{T}dt\ H_I(t)])$的原因参考书�
 
 \clearpage
 
-\section{Non-Abelian Gauge Invariance}
+\chapter{Non-Abelian Gauge Invariance}
 
-\subsection{The Geometry of Gauge Invariance}
-
-
-
-
-% \section{Cheat Sheet}
-
-% \subsection{定理类环境}
-
-% \begin{theorem}[名称]
-%   这是一个定理(theorem)
-% \end{theorem}
-
-% \begin{lemma}[名称]
-%   这是一个引理(lemma)
-% \end{lemma}
-
-% \begin{proposition}[名称]
-%   这是一个命题(proposition)
-% \end{proposition}
-
-% \begin{corollary}[名称]
-%   这是一个推论(corollary)
-% \end{corollary}
-
-% \subsection{定义类环境}
-
-% \begin{definition}[名称]
-%   这是一个定义(definition)
-% \end{definition}
-
-% \begin{conjecture}[名称]
-%   这是一个猜想(conjecture)
-% \end{conjecture}
-
-% \begin{example}[名称]
-%   这是一个例子(example)
-% \end{example}
-
-% \subsection{备注类环境}
-
-% \begin{remark}[名称]
-%   这是一条评论(remark)
-% \end{remark}
-
-% \begin{note}[名称]
-%   这是一条注(note)
-% \end{note}
-
-% \begin{case}[名称]
-%   这是一个案例(case)
-% \end{case}
-
-% \subsection{证明类环境}
-
-% \begin{proof}
-%   这是一个证明(proof)
-% \end{proof}
+\section{The Geometry of Gauge Invariance}
 
 \end{document}
-
-
-% 波浪线:\textasciitilde
