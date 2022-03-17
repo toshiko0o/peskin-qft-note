@@ -59,12 +59,13 @@
 
 \begin{document}
 
-\maketitle
+% \maketitle
 
 % \centerline{
 %   \includegraphics[width=0.72\textwidth]{peskin-front.jpg}
 % }
 
+\addcontentsline{toc}{chapter}{目录}
 \tableofcontents
 
 
@@ -80,7 +81,7 @@
 
 本文为基于\textit{An Introduction to Quantum Field Theory} - \textit{Peskin \& Schroeder}一书的量子场论笔记. 
 
-本文主要对此书正文部分一些复杂的计算和难以理解的段落作了注释, 同时根据研究生课程内容对部分较为简略的段落添加了补充说明. 由于计算比较困难, 并且许多概念及物理图像需要仔细思考后才能理解, 故本篇笔记将以中文呈现. 若后有闲暇, 将转译为英文. 
+本文主要对此书正文部分一些复杂的计算和难以理解的段落作了注释, 同时根据研究生课程内容对部分较为简略的段落添加了补充说明. 由于计算比较困难, 并且许多概念及物理图像需要仔细思考后才能理解, 故本篇笔记将以中文呈现. 若后有闲暇, 可能翻译为英文. 
 
 如发现任何错误或遗漏, 或希望与我讨论书中的内容, 欢迎通过\href{mailto:toshiko.h19@gmail.com}{邮件}联系. 
 
@@ -91,6 +92,8 @@
 \clearpage
 
 \part{Feynman Diagrams and Quantum Electrodynamics}
+
+\clearpage
 
 \chapter{Invitation: Pair Production in \texorpdfstring{$e^+e^-$}\ \ Annihilation}
 
@@ -251,7 +254,7 @@ Hagen Kleinert解释了在(2.11)中用Euler-Lagrange方程的含义: 在此处�
     
     \mbox{}
     
-    注
+    注: 
       \begin{enumerate}
         \item 实际上这里的导数需要替换为李导数. 
         \item 更好的导出守恒流的方式也许是考虑局域变换, 详见Weinberg书中讲解或Hagen Kleinert课件中 8.1.2 一节. 
@@ -269,6 +272,53 @@ Hagen Kleinert解释了在(2.11)中用Euler-Lagrange方程的含义: 在此处�
   &=0.
   \end{aligned}
 \end{equation}
+
+\subsection{P18 - (2.15)}
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox[t]{32em}{
+
+      \mbox{}
+
+      注: 
+
+      在求复数场运动方程时, 往往会将场$\phi$和它的共轭$\phi^*$ (共轭转置$\phi^\dagger$) 当作独立的场处理, 但实际上它们之间存在着约束关系. 可以认为是独立的变量的原因如下 (参见\href{https://arxiv.org/abs/1110.5013v5}{这篇笔记}第56页下方):
+
+      考虑作用量$S[\phi,\phi^*]$, 其动力学方程由变分原理给出:
+      \begin{equation*}
+        \delta S = \int d^4x\ (A\delta\phi + A^*\delta\phi^*) = 0.  
+      \end{equation*}
+
+      \begin{enumerate}
+        \item 认为$\phi$与$\phi^*$独立, 则立刻可以写出运动方程: 
+        \begin{equation*}
+          \left\{\begin{gathered}
+            A^{\phantom{*}} = 0 \\
+            A^* = 0
+          \end{gathered}\right..
+        \end{equation*}
+
+        \item 将$\phi$的两个分量$\phi_r$和$\phi_i$作为独立变量, 
+        \begin{align*}
+          \phi^{\phantom{*}} &= \phi_r + i\phi_i \\
+          \phi^* &= \phi_r - i\phi_i, 
+        \end{align*}
+        由变分原理得到的结果为
+        \begin{equation*}
+          \delta S = \int d^4x\ [A(\delta\phi_r+\delta\phi_i) + A^*(\delta\phi_r-\delta\phi_i)] = 0, 
+        \end{equation*}
+        则运动方程: 
+        \begin{equation*}
+          \left\{\begin{gathered}
+            A + A^* = 0 \\
+            A - A^* = 0
+          \end{gathered}\right.\Rightarrow A = A^* = 0
+        \end{equation*}
+      \end{enumerate}
+      两种方法得到的结果一致. 
+    }
+  }
+\end{center}
 
 \section{The Klein-Gordon Field as Harmonic Oscillators} 
 
@@ -657,7 +707,7 @@ $l.h.s = r.h.s$, 即证.
         \end{equation}
       }
     }
-      \end{center}
+  \end{center}
 \end{enumerate}
 
 \subsection{P46 - (3.50)}
@@ -947,7 +997,7 @@ $e^{-iH(2t)}$可以写为$T(\exp[-i\int_{-T}^{T}dt\ H_I(t)])$的原因参考书�
 \begin{equation}
   |\mathcal{M}|^2 = \sum p_n |\mathcal{M}_n|^2, 
 \end{equation}
-书中的例子考虑了自旋向上或向下的概率为$1/2$, 即完全非极化的情况. 
+书中的例子考虑自旋向上或向下的概率均为$1/2$, 即完全非极化的情况. 
 
 由于入射流的粒子情况是已知的, 粒子总数目固定, 每种粒子所占的比例已知, 所以求总截面时计算各分截面的期望; 而出射流的粒子情况未知, 探测器忽略了自旋信息, 故需对所有类型的事件的数目直接求和. 
 
@@ -964,6 +1014,10 @@ $e^{-iH(2t)}$可以写为$T(\exp[-i\int_{-T}^{T}dt\ H_I(t)])$的原因参考书�
 
 \clearpage
 
+\part{Renormalization}
+
+\clearpage
+
 \chapter{Invitation: Ultraviolet Cutoffs and Critical Fluctuations}
 
 介绍性的章节. 
@@ -976,7 +1030,9 @@ $e^{-iH(2t)}$可以写为$T(\exp[-i\int_{-T}^{T}dt\ H_I(t)])$的原因参考书�
 
 \section{Path Integrals in Quantum Mechanics}
 
-这一节随便看看就行了, 推荐去看Sakurai或者Srednicki相关的部分. 下一节开始才是重要的部分. 
+这一节最重要的是书中的(9.12)式. 
+
+剩下的随便看看就行了, 推荐去看Sakurai或者Srednicki相关的部分. 下一节开始才是重要的部分. 
 
 \subsection{P276 - (9.2)}
 
@@ -1002,6 +1058,8 @@ $e^{-iH(2t)}$可以写为$T(\exp[-i\int_{-T}^{T}dt\ H_I(t)])$的原因参考书�
 
 \section{Functional Quantization of Scalar Fields}
 
+这一节最重要的是书中的(9.34)和(9.35)两式. 对于K-G场, 书中(9.39)式的生成函数的形式也很重要. 
+
 \subsection{P282 - (9.14)}
 
 \begin{center}
@@ -1012,7 +1070,63 @@ $e^{-iH(2t)}$可以写为$T(\exp[-i\int_{-T}^{T}dt\ H_I(t)])$的原因参考书�
   }
 \end{center}
 
+\subsection{P285 - (9.21)及下面的一段话}
+
+离散化的傅立叶展开的推导(参考\href{https://physics.stackexchange.com/questions/533991/the-discrete-fourier-series-in-peskin-and-schroeder-page-285}{这个讨论}): 
+
+考虑$dk = \Delta k = 2\pi/L$, 从连续形式出发, 有
+\begin{equation}
+  \begin{aligned}
+    \phi(x_i) &= \int \frac{d^4 k}{(2\pi)^4} \ e^{-ik\cdot x_i}\phi(k) \\ 
+    &= \lim_{n\rightarrow\infty}\sum_n \frac{(\Delta k)^4}{(2\pi)^4} \ e^{-ik\cdot x_i}\phi(k) \\
+    &\approx \sum_n \frac{1}{(2\pi)^4} \frac{(2\pi)^4}{L^4}\ e^{-ik\cdot x_i}\phi(k) \\ 
+    &= \frac{1}{V} \sum_n \ e^{-ik\cdot x_i}\phi(k).
+  \end{aligned}
+\end{equation}
+
+这里要求$|k^{\mu}| < \pi/\epsilon$的原因是在离散化的格点上函数的周期不能小于$2\epsilon$. (若周期为$\epsilon$, 则此函数在所有格点上取同一值, 与常数函数没有区别)
+
+令$\phi^*(k) = \phi(-k)$可以保证$Im\ \phi(-k_n) = -Im\ \phi(k_n)$, 这样在求和的时候虚部就会全部抵消. ($k_n$求和范围: $[-\frac{\pi}{\epsilon}, -\frac{2\pi}{L}]\cup [\frac{2\pi}{L}, \frac{\pi}{\epsilon}]$)
+
+\subsection{P287 - (9.26)}
+
+计算形如$\int dx x^2 \exp(-bx^2)$的积分时, 可以对高斯积分内指数项中的系数求导: 
+\begin{equation}
+  \begin{aligned}
+    \int dx x^2 \exp(-bx^2) &= -\int dx \frac{d}{db}\exp(-bx^2) \\
+    &= -\frac{d}{db} \int dx \exp(-bx^2) \\ 
+    &= -\frac{d}{db} \sqrt{\frac{\pi}{b}} \\ 
+    &= \frac{\sqrt{\pi}}{2}b^{-\frac{3}{2}}. 
+  \end{aligned}
+\end{equation}
+
+在对书中(9.26)积分时, 仅对$m=n$的一项使用此式. 
+
+\subsection{P290最下方一式的推导}
+\begin{equation}
+  \begin{aligned}
+    l.h.s &= \int d^4 x \biggl[\frac{1}{2}\Bigl(\phi'(x) + i\int d^4y\ D_F(x-y)J(y)\Bigr) \\ 
+    &\qquad \times \Bigl(-\partial^2 - m^2 + i\epsilon\Bigr)\Bigl(\phi'(x) + i\int d^4y\ D_F(x-y)J(y)\Bigr) \\
+    &\qquad + J(x)\Bigl(\phi'(x) + i\int d^4y\ D_F(x-y)J(y)\Bigr)\biggr] \\
+    &= \int d^4 x \biggl[\frac{1}{2}\Bigl(\phi'(x) + i\int d^4y\ D_F(x-y)J(y)\Bigr) \\ 
+    &\qquad \times \Bigl((-\partial^2 - m^2 + i\epsilon)\phi'(x) - J(x)\Bigr) \\
+    &\qquad + J(x)\phi'(x) + i\int d^4y\ J(x)D_F(x-y)J(y)\biggr] \\
+    &= \int d^4 x \biggl[\frac{1}{2}\phi'(x)(-\partial^2 - m^2 + i\epsilon)\phi'(x) - \frac{1}{2}J(x)\phi'(x) \\
+    &\qquad - \frac{i}{2}\int d^4y D_F(x-y)J(y)(-\partial^2 - m^2 + i\epsilon)\phi'(x) \\ 
+    &\qquad - \frac{i}{2}\int d^4y J(x)D_F(x-y)J(y) \\
+    &\qquad + J(x)\phi'(x) + i\int d^4y\ J(x)D_F(x-y)J(y)\biggr] \\
+    &= \int d^4x [\tfrac{1}{2}\phi'(-\partial^2 - m^2 + i\epsilon)\phi'] - \int d^4x d^4y \tfrac{1}{2}J(x)[-iD_F(x-y)]J(y). 
+  \end{aligned}
+\end{equation}
+
+其中用到了$(\partial^2 + m^2)D_F(x-y) = -i\delta^4(x-y)$. 对倒数第4行分部积分后可以将其简化为$-\frac{1}{2}J(x)\phi'(x)$. 
+
 \section{The Analogy Between Quantum Field Theory and Statistical Mechanics}
+
+暂时跳过
+
+\section{Quantization of the Electromagnetic Field}
+
 
 
 
@@ -1028,6 +1142,10 @@ $e^{-iH(2t)}$可以写为$T(\exp[-i\int_{-T}^{T}dt\ H_I(t)])$的原因参考书�
 
 \clearpage
 
+\part{Non-Abelian Gauge Theories}
+
+\clearpage
+
 \chapter{Invitation: The Parton Model of Hadron Structure}
 
 介绍性的章节. 
@@ -1039,5 +1157,139 @@ $e^{-iH(2t)}$可以写为$T(\exp[-i\int_{-T}^{T}dt\ H_I(t)])$的原因参考书�
 \chapter{Non-Abelian Gauge Invariance}
 
 \section{The Geometry of Gauge Invariance}
+
+\subsection{P483 - (15.5)}
+
+此处的展开为
+\begin{equation}\label{eq: expand_of_U(y,x)}
+  U(x+\epsilon n, x) = 1 + \epsilon n^{\mu} \partial'_{\mu}U(x', x)|_{x' = x} + \mathcal{O}(\epsilon^2),
+\end{equation}
+我们将$ie^{-1}\partial'_{\mu}U(x', x)|_{x' = x}$记为$A_{\mu}$, 即可得到书上的结果. 
+
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox[t]{32em}{
+
+      \mbox{}
+
+      注: 
+
+      此展开式也可以由$U(y, x)$更为一般的定义(参考15.3节)得到. 我们令其起点为$0$, 终点为$s$, 则可记$U(s, 0)$为$U(s)$, 且$U(0) = 1$, 其定义式为
+      \begin{equation}
+        \frac{d}{ds}U(s) = i\frac{dx^{\mu}(s)}{ds}A_{\mu}[x(s)]U(s).
+      \end{equation}
+      
+      \begin{equation}
+        \begin{aligned}
+          U(s+\epsilon) &= U(s+\epsilon)U(s)^{-1}U(s) \\
+          &= \biggl[\biggl(U(s) + \epsilon\frac{d}{ds}U(s) \biggr)U^{-1}(s)\biggr]U(s) \\
+          &= \biggl[U(s)\biggl(1 + i\epsilon \frac{dx^{\mu}(s)}{ds}A_{\mu}[x(s)]\biggr)U^{-1}(s) \biggr]U(s) \\ 
+          & = \biggl(1 + i\epsilon \frac{dx^{\mu}(s)}{ds}A_{\mu}(x)\biggr)U(s), 
+        \end{aligned}
+      \end{equation}
+      令$s=0$, 则
+      \begin{equation}
+        U(\epsilon) = 1 + i\epsilon n^{\mu} A_{\mu}(x).
+      \end{equation}
+
+      这里的$A_{\mu}$和书中的差一个系数$-e^{-1}$. 
+    }
+  }
+\end{center}
+
+\subsection{P484 - (15.9)}
+
+\begin{enumerate}
+  \item 这里要求$(U(x,y))^{\dagger} = U(y,x)$是自然的. 我们考虑对$(U(x,y))^{\dagger}$做书中(15.3)的变换, 有
+  \begin{equation}
+    (U(x,y))^{\dagger} \rightarrow (e^{i\alpha(x)}U(x,y)e^{-i\alpha(y)})^{\dagger} = e^{i\alpha(y)}(U(x,y))^{\dagger}e^{-i\alpha(x)}, 
+  \end{equation}
+  和$U(y,x)$的变换方式一致. 
+  
+  \item 关于如何得到这个式子: 
+  
+  首先我们将(\ref{eq: expand_of_U(y,x)})展开至$\epsilon^2$项(以下$\partial'_{\mu}U(x', x)|_{x' = x}$简写为$\partial_{\mu}U$)
+  \begin{equation}
+    \begin{aligned}
+      U(x+\epsilon n, x) &= 1 + \epsilon n^{\mu} \partial_{\mu}U + \tfrac{1}{2}\epsilon^2 n^{\mu} n^{\nu} \partial_{\mu} \partial_{\nu}U + \mathcal{O}(\epsilon^3) \\ 
+      &= 1 - ie\epsilon n^{\mu}A_{\mu} - ie\epsilon n^{\mu} (\tfrac{1}{2} \epsilon n^{\nu} \partial_{\nu} A_{\mu}) + \mathcal{O}(\epsilon^3) \\
+      &= 1 - ie\epsilon n^{\mu}l(A_{\mu} + \tfrac{1}{2} \epsilon n^{\nu} \partial_{\nu} A_{\mu}) + \mathcal{O}(\epsilon^3) \\ 
+      &= 1 - ie\epsilon n^{\mu}A_{\mu}(x+\tfrac{\epsilon}{2}n) + \mathcal{O}(\epsilon^3) \\ 
+      &= \exp[-ie\epsilon n^{\mu}A_{\mu}(x+\tfrac{\epsilon}{2}n) + \mathcal{O}(\epsilon^3)]. 
+    \end{aligned}
+  \end{equation}
+
+  \item 检查这个式子满足$(U(x,y))^{\dagger} = U(y,x)$: 
+  \begin{equation}
+    \begin{aligned}
+      (U(x+\epsilon n, x))^{\dagger} &= \exp[+ie\epsilon n^{\mu}A_{\mu}(x+\tfrac{\epsilon}{2}n)] \\
+      &= \exp[+ie\epsilon n^{\mu}A_{\mu}((x+\epsilon n) - \tfrac{\epsilon}{2}n)] \\
+      &= U((x+\epsilon n)-\epsilon n, x+\epsilon n) \\ 
+      &= U(x, x+\epsilon n). 
+    \end{aligned}
+  \end{equation}
+\end{enumerate}
+
+\subsection{P485 - (15.18)}
+
+这里提到的dimension 5 and 6指mass dimension, 下面一行就有写. 
+
+\section{The Yang-Mills Lagrangian}
+
+\subsection{P487 - (15.26)}
+
+$V(x)V^{\dagger}(x) = 1$, 故$\partial_{\mu}(V(x)V^{\dagger}(x))=0$, 最后一行进行分部积分时用了这个性质. 
+
+\subsection{P488 - (15.30)}
+
+对于有限变换, 证明如下: 
+\begin{equation}
+  \begin{aligned}
+    D_{\mu}\phi &= \biggl(\partial_{\mu} - igA^{i}_{\mu}\frac{\sigma^i}{2}\biggr)\psi \\
+    &\rightarrow \biggl(\partial_{\mu} - igV\biggl(A^{i}_{\mu}\frac{\sigma^i}{2} + \frac{i}{g}\partial_{\mu}\biggr)V^{\dagger}\biggr)V\psi \\ 
+    &= \partial_{\mu}(V\psi) - VigA^{i}_{\mu}\frac{\sigma^i}{2}\psi + V(\partial_{\mu}V^{\dagger})V\psi \\ 
+    &= (\partial_{\mu}V)\psi + V\partial_{\mu}\psi - VigA^{i}_{\mu}\frac{\sigma^i}{2}\psi - (\partial_{\mu}V)V^{\dagger}V\psi \\ 
+    &= V\biggl(\partial_{\mu} - igA^{i}_{\mu}\frac{\sigma^i}{2}\biggr)\psi \\ 
+    &= VD_{\mu}\phi.
+  \end{aligned}
+\end{equation}
+
+\subsection{P489 - (15.38)}
+
+这里等式右端写成类似$-\frac{1}{4}\sum_{i}(F^i_{\mu\nu})^2$的形式会比较好理解. 
+
+\subsection{P491 - (15.50)下面那一段话}
+
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox{32em}{
+        (\textit{个人理解})参照书中(15.46)和(15.50), $\psi$和$F^a_{\mu\nu}$以及它们的协变导数的变换中都不含有$\partial_{\mu}\alpha^a$项($D_{\lambda}F^a_{\mu\nu}$的变换需要稍微算一下), 故全局对称性就可以保证局域对称性. 
+    }
+  }
+\end{center}
+
+\section{The Gauge-Invariant Wilson Loop}
+
+
+\clearpage
+
+\chapter{Quantization of Non-Abelian Gauge Theories}
+
+\chapter{Quantum Chromodynamics}
+
+\chapter{Operator Products and Effective Vertices}
+
+\chapter{Perturbation Theory Anomalies}
+
+\chapter{Gauge Theories with Spontaneous Symmetry Breaking}
+
+\chapter{Quantization of Spontaneously Broken Gauge Theories}
+
+\clearpage % 加这个命令后, 目录中的页码才显示正确
+\phantomsection % 加这个命令后, 目录中的超链接才指向正确的页码
+\part*{Epilogue} %开始一段不带编号的章
+\addcontentsline{toc}{part}{Epilogue} %使目录中以章级别显示
+
+\chapter{Quantum Field Theory at the Frontier}
 
 \end{document}
