@@ -808,7 +808,27 @@ $\xi(\uparrow)$和$\xi(\downarrow)$是$\boldsymbol{\sigma}\cdot\mathbf{\hat{n}}$
 
 \subsection{P70 - (3.147)}
 
-关于这里第三步中出现的负号, 仍需讨论. 
+关于这里第三步中出现的负号, 具体计算过程如下: 
+\begin{equation*}
+  \begin{aligned}
+    -\gamma^0_{ab}\gamma^2_{bc}\psi_c\bar{\psi}_d\gamma^0_{de}\gamma^2_{ea} =& +\bar{\psi}_d \gamma^0_{de}\gamma^2_{ea}\gamma^0_{ab}\gamma^2_{bc}\psi_c - \bigl\{\psi_c,\psi_f^\dagger\bigr\}\gamma^0_{fd} \gamma^0_{ab}\gamma^2_{bc}\gamma^0_{de}\gamma^2_{ea}\ , 
+  \end{aligned}
+\end{equation*} 
+其中第二项为(第三行用到了奇数个$\gamma^{\mu}$矩阵的迹为零的性质)
+\begin{equation*}
+  \begin{aligned}
+    \bigl\{\psi_c,\psi_f^\dagger\bigr\}\gamma^0_{fd} \gamma^0_{ab}\gamma^2_{bc}\gamma^0_{de}\gamma^2_{ea} =& \delta_{cf}\gamma^0_{fd}\gamma^0_{ab}\gamma^2_{bc}\gamma^0_{de}\gamma^2_{ea}\delta^{(3)}(\mathbf{x}-\mathbf{x})\\
+    =& \mathrm{Tr}\bigl(\gamma^0 \gamma^0 \gamma^2 \gamma^0 \gamma^2\bigr)\delta^{(3)}(0)\\
+    =& 0 \delta^{(3)}(0)\\
+    =& 0. 
+  \end{aligned}
+\end{equation*} 
+故
+\begin{equation*}
+  \begin{aligned}
+    -\gamma^0_{ab}\gamma^2_{bc}\psi_c\bar{\psi}_d\gamma^0_{de}\gamma^2_{ea} =& +\bar{\psi}_d \gamma^0_{de}\gamma^2_{ea}\gamma^0_{ab}\gamma^2_{bc}\psi_c.
+  \end{aligned}
+\end{equation*} 
 
 \clearpage
 
@@ -1270,6 +1290,44 @@ $V(x)V^{\dagger}(x) = 1$, 故$\partial_{\mu}(V(x)V^{\dagger}(x))=0$, 最后一�
 
 \section{The Gauge-Invariant Wilson Loop}
 
+\subsection{P492 - (15.55)}
+
+这里用斯托克斯定理后调整一下形式即可(第三行调整了$\epsilon$上标的顺序): 
+\begin{equation}
+  \begin{aligned}
+    U_P(y, y) &= \exp\Bigl[ -ie \oint_P dx^{\mu} A_{\mu}(x) \Bigr] \\
+    &= \exp\Bigl[ -ie \int_{\Sigma} \epsilon^{\mu\nu\rho\sigma}\partial_{\rho} A_{\sigma} dx_{\mu}dx_{\nu}\Bigr] \\
+    &= \exp\Bigl[ -i\frac{e}{2} \int_{\Sigma} (\partial_{\rho} A_{\sigma} \epsilon^{\mu\nu\rho\sigma} dx_{\mu}dx_{\nu} - \partial_{\sigma} A_{\rho} \epsilon^{\mu\nu\rho\sigma} dx_{\mu}dx_{\nu})\Bigr] \\
+    &= \exp\Bigl[ -i\frac{e}{2} \int_{\Sigma} F_{\rho\sigma}\epsilon^{\mu\nu\rho\sigma} dx_{\mu}dx_{\nu}\Bigr] \\
+    &= \exp\Bigl[ -i\frac{e}{2} \int_{\Sigma} d\sigma^{\rho\sigma} F_{\rho\sigma} \Bigr].
+  \end{aligned}
+\end{equation}
+
+\section{Basic Facts about Lie Algebras}
+
+\subsection{P496 - (15.71)}
+
+关于阿贝尔群的不可约表示为什么必然具有$U(1)$的形式, 可以参考Brian C. Hall的Lie Groups, Lie Algebras, and Representations (GTM 222), 3.2节. 关于李代数的很多问题都可以参考这本书. 
+
+\begin{center}
+  \framebox[1.15\width][s]{
+    \parbox{32em}{
+        (\textit{评论})以后出门可以跟人吹高深莫测的牛: “我最近在看GTM 222”. 
+    }
+  }
+\end{center}
+
+\subsection{P497 - (15.74)}
+
+\begin{enumerate}
+  \item 关于$U(N)$和$SU(N)$的行列式: 
+  
+  可以把$U(N)$考虑成做完$SU(N)$变换后又做了一次$U(1)$变换. 对于$U(N)$, 行列式可能的取值为$\det(U_{U(N)}) = e^{iN\alpha}$; 而从中去掉$U(1)$的部分后就得到了$\det(U_{SU(N)}) = 1$. 
+
+  \item 由$\det(U) = \det(e^{i\alpha t^{\alpha}}) = e^{{\rm tr}(i\alpha t^{\alpha}}) = 1$, 故${\rm tr}(t^{\alpha}) = 0$. 
+\end{enumerate}
+
+\subsection{}
 
 \clearpage
 
